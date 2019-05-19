@@ -1,0 +1,36 @@
+zju 1459 String Distance and Transform Process 编辑距离
+
+我们将一个字符串变成另一个，一般有三种基本操作
+1:删一个字母
+
+2:插入一个字母
+
+
+3:将一个字母替换成另一个
+
+进行上述基本操作的任一种称为一步。
+请问对于给定的两个字符串，最小用几步将可将第一个转换成第二个。
+
+输入：成对的字符串，其长不超过80
+
+输出：先输出操作的总步数，然后输出每一步的操作。
+
+Sample Input
+
+abcac
+bcd
+aaa
+aabaaaa
+
+Sample Output
+
+3
+1 Delete 1
+2 Replace 3,d
+3 Delete 4
+4
+1 Insert 1,a
+2 Insert 2,a
+3 Insert 3,b
+4 Insert 7,a
+

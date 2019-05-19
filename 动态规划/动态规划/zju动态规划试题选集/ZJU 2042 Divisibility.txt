@@ -1,0 +1,38 @@
+ZJU 2042 Divisibility
+
+Time limit: 1 Seconds   Memory limit: 32768K   Total Submit: 1340   Accepted Submit: 321   
+
+译题：
+给出N个数，你可以在这N个数中任意地添加+号或-号，求出能不能使算出的结果被K整除。可以则打印“Divisible”，否则打印“Not divisible”
+
+下面是一个例子：
+
+有4个数，分别是17 5 -21 15
+
+17 + 5 + -21 + 15 = 16 
+17 + 5 + -21 - 15 = -14 
+17 + 5 - -21 + 15 = 58 
+17 + 5 - -21 - 15 = 28 
+17 - 5 + -21 + 15 = 6 
+17 - 5 + -21 - 15 = -24 
+17 - 5 - -21 + 15 = 48 
+17 - 5 - -21 - 15 = 18 
+
+有8种添法，其中第二种求出的-14能被7整除。
+
+Sample Input
+
+2
+
+4 7
+17 5 -21 15
+
+4 5
+17 5 -21 15
+
+Sample Output
+
+Divisible 
+
+Not divisible
+

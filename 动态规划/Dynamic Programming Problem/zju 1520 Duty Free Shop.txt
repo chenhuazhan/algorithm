@@ -1,0 +1,32 @@
+zju 1520 Duty Free Shop
+
+Time limit: 1 Seconds   Memory limit: 32768K   Special Judge
+Total Submit: 521   Accepted Submit: 150  
+
+将两种不同品牌的巧克力放到盒子里去。
+要求盒子必须被装满，不能有空且这两种巧克力不
+能混装,巧克力可以不必全部用完，可以有剩余。输入：
+将多个测试数据。
+每个数据格式如下：
+第一行有两个数，代表两种品牌的巧克力
+各有多少颗,这两个数在1000以内.
+第二行的数字N代表有多少个盒子。
+第三行将有N个数字，代表例子的体积.
+整个测试以两个0代表结束.输出：
+如果能达到题目的要求就
+首先输出第一种品牌的巧克力用了多少个盒子.
+然后在同一行输出用了哪几个例子.
+如果达不到要求就输出Impossible to distribute
+
+Sample Input
+12 9
+4
+5 2 8 5
+100 120
+5
+21 32 110 54 3
+0 0
+
+Sample Output
+3 1 2 4          {12=5+2+5,}
+Impossible to distribute

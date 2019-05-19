@@ -1,0 +1,120 @@
+2001年广东省信息学竞赛决赛一试第三题
+			旅行
+提交文件名:tEWeLeyte
+
+〖问题描述〗
+GDOI队员们到Z镇游玩。Z镇是一个很特别的城镇，它有m+1条东西方向和n+1条南北方向的道路，划分成m*n个区域。Z镇的名胜位于这些区域内。从上往下数第i行，从左往右数第j列的区域记为D(i，j)。GDOI队员们预先对这m*n个区域打分V(i，j)(分数可正可负)。分数越高表示他们越想到那个地方，越低表示他们越不想去。为了方便集合，队员们只能在某一范围内活动。我们可以用(m1，nl)与(m2，n2)(m1<=m2，n1<=n2)表示这样的一个范围:它是这些区域的集合:{D(i，j)|m1<=I<=m2，n1<=j<=n2}。GDOI队员们希望他们活动范围内的区域的分值总和最大。 
+当然，有可能队员们一个地方也不去(例如，所有区域的分值都是负数。当然，如果某范串内的分值总和为零的话，他们也会去玩)。也有可能他们游览整个Z镇。你的任务是编写一个程序，求出他们的活动范围(m1，nl)，(m2，n2〉。
+
+〖输入格式〗
+输入数据存放在当前目录下的文本文件"travel.dat"中。数据有m+1行。第一行有两个数m，n(m，n定义如上)。其中，（1<=m<=250，1<=n<=250）。接下来的m行，每行n个整数，第i行第j个数表示分值V(i，j)(-128<=V(i，j)<=l27)。每两个数之间有一个空格。
+
+〖输出格式〗
+答案输出到当前目录下?quot;travel.out"中，只有一行，分两种情况:
+1．队员们在范围（m1，n1），(m2，n2)内活动，输出该范围内的分值。
+2.队员们不想去任何地方，只需输出"NO"。
+注意:不要有多余空行，行首行尾不要有多余空格。
+
+
+〖输入输出举例〗
+
+样例一 
+Travel.dat   
+4 5
+1 -2 3 -4 5
+6 7 8 9 10
+-11 12 13 14 -15
+16 17 18 19 20
+
+travel.out
+146
+
+样例二 
+Travel.dat
+2 3
+-1 -2 -1
+-4 -3 -6
+
+travel.out 
+no 
+
+〖问题分析〗
+我们先看一个比较简单的问题，如何在一个队列里找出连续的几个数，使数的总和最大。对于这样的问题，我们可以用动态规划来做，即max=max{max（a[i-1]）+a[i]，a[i]}；具体到了这道题，就可以将连续的几行合并起来，转化为以上的问题。而如果我们直接搜索，就需要6层for循环。具体流程如下：
+for i：=1 to m do
+for j：=i to m do
+for k：= 1 to n do
+begin
+for l：=i to j do
+合并行；
+求max值；
+end;
+程序基本上就是这样，但要注意：max值一定要设为longint ，否则测试时将会有一半以上的数据出错！！
+
+〖数据结构〗
+一个用于读数据的250*250的数组（注意类型要设为shortint），及一个250的一维数组（用于合并行）；
+优缺点及改进办法：这个程序最大的缺点就是搜索量太大，有些数据可能会超时。通过观察我们会发现：在合并i到j行与合并i到j+1行时，只是在原有合并好的数组上再加一行，无须重新计算，因此，程序可改进如下：
+for i：=1 to m do
+for j：=i to m do
+for k：= 1 to n do
+begin
+b[k];=a[j,k]+b[k];{b是合并好的数组，a蔷卣髛
+求max值；
+end;
+经过改进后，程序在所有的测试数据上都能通过（小于2秒），这道题就算完成了。 
+
+〖参考程序〗
+program travle;
+var f,P:text;
+m,n,i,j,k,l,t:integer;
+max,maxest:longint;
+pan:boolean;
+b:array[1.. 250] of longint;
+a:array[1..250,1..250] of shortint;
+procedure input;
+begin
+assign(f,'travel7.dat');
+reset(f);
+read(f,m);
+readln(f,n);
+pan:=true;
+for i:=1 to m do
+begin
+for j:=1 to n do
+read(f,a[i,j]);
+if a[i,j]>=0 then pan:=false;
+readln(f);
+end;
+close(f);
+end;
+procedure search;
+begin
+for i:=1 to m do
+begin
+for j:=i to m do
+begin
+max:=0;
+for l:=1 to n do
+begin
+b[l]:=a[j,l]+b[l];
+if max+b[l]>b[l] then max:=max+b[l]
+else max:=b[l];
+end;
+if max>maxest then maxest:=max;
+end;
+for j:=1 to n do
+b[j]:=0;
+end;
+end;
+procedure output;
+begin
+assign(p,'u:\travle.out');
+rewrite(p);
+if pan then writeln(p,'No')
+else writeln(p,maxest);
+close(p);
+end;
+begin
+input;
+search;
+output;
+end.

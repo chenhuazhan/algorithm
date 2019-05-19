@@ -1,0 +1,12 @@
+动规练习题目
+1946 Cow Cycling
+1821 Fence
+2353 Ministry
+1112 Team Them Up!
+1742 Coins 背包
+1036 Gangsters 状态压缩
+2411 Mondriaan's Dream 状态压缩
+1038 Bugs Integrated,Inc. 状态压缩 黑书上有讲
+1837 Balance 背包
+1276 Cash Machine 多重背包
+ZOJ2561 四边形不等式(ZOJ)

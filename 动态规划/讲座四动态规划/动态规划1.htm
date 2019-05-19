@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0056)http://www.yizhong.xm.fj.cn/student/as/shijl/sf/sf51.htm -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE><!-- #BeginEditable "doctitle" --><!-- #EndEditable -->
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<STYLE type=text/css>.9p {
+	FONT-SIZE: 9pt
+}
+</STYLE>
+
+<META content="MSHTML 5.50.4134.100" name=GENERATOR></HEAD>
+<BODY class=9p bgColor=#ffffff>
+<DIV class=9p align=center><BR>
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR bgColor=#ffffff>
+    <TD width="8%"><FONT color=#cccccc><IMG height=60 src="d1.files/logo1.jpg" 
+      width=190></FONT></TD>
+    <TD width="92%"><FONT color=#cccccc><IMG height=60 
+      src="d1.files/logo2.jpg" width=570></FONT></TD></TR></TBODY></TABLE>
+<TABLE borderColor=#ccccff height=22 cellSpacing=0 borderColorDark=#ffffff 
+cellPadding=0 width="100%" bgColor=#ccccff borderColorLight=#000000 border=1>
+  <TBODY>
+  <TR>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/index.htm">返回首页</A></FONT></TD>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/sf/sf0.htm">算法园地</A></FONT></TD>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      target=_blank href="http://shijl.abc.yesite.com/">编程论坛</A></FONT></TD>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/wt/wt.htm">问题解答</A></FONT></TD>
+    <TD align=middle width="15%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/lx/lx.htm">经典习题</A></FONT></TD>
+    <TD align=middle width="15%" height=19><FONT color=#0000ff size=2><A 
+      href="mailto:shijl@126.com">写信给我</A></FONT></TD></TR></TBODY></TABLE>
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD height=2>
+      <DIV align=right><FONT class=9p color=#0000cc>　　　　　　　　　　　　　　　　　　　　 
+      <BR>您现在所处的位置//<A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/index.htm">首页</A>/<A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/sf/sf0.htm">算法园地</A>/动态规划算法1 
+      of 2/<BR>　 </FONT></DIV></TD></TR></TBODY></TABLE>
+<TABLE class=9p width="85%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=font9p height=2><FONT color=#ff0000>五、动态规划之一</FONT> </TD></TR>
+  <TR>
+    <TD class=font9p height=2>1、 
+      动态规划：将要求解的问题一层一层地分解成一级一级的，规模逐步缩小的子问题，直到可以直接求出其解的子问题为止。<BR>2、 
+      动态规划法与回溯法的不同之处：动态规划法的问题所对应的子问题树中的子问题呈现大量的重复。<BR>解决方法：在第一次遇到时加以求解，并把答案保存起来，以后遇到问题时直接引用。<BR>3、 
+      步骤：<BR>（1） 分析最优解的性质，并刻划其结构特征；<BR>（2） 递归地定义最优值；<BR>（3） 
+      自底向上的方式计算出最优值；<BR>（4） 根据计算最优值时得到信息，构造一个最优解。<BR>4、 
+      动态规划算法的基本要素：<BR>*、最优子结构：当问题的最优解包含了其子问题的最优解时，<BR>*、重叠子问题：用递归算法自顶向下解此问题时，每次产生的子问题并不总是新问题，有些子问题被反复计算多次。 
+    </TD></TR>
+  <TR>
+    <TD class=font9p height=2>例子 </TD></TR>
+  <TR>
+    <TD class=font9p height=2>3-1 从A地到E地可以经过不同的路径，不同的路有不同的发费，问如何走可以得到耗费最少的路径？ 
+    </TD></TR>
+  <TR>
+    <TD class=font9p height=2><FONT color=#0000ff>program traval;<BR>　const 
+      max=100;<BR>　type 
+      recordtype=record<BR>　　　　　　　　　price,content:real;<BR>　　　　　　　　　end;<BR>　var 
+      i,j,n,point,tail:longint;<BR>　　　content,change,distance2,money,use:real;<BR>　　　price,distance,consume:array[0..max] 
+      of real;<BR>　　　oil:array[0..max] of recordtype;<BR>　procedure 
+      ini;<BR>　　var i:integer;<BR>　　begin<BR>　　　write('Input 
+      d1,c,d2,p:');<BR>　　　readln(distance[0],content,distance2,price[0]);<BR>　　　write('Input 
+      N:');readln(n);<BR>　　　distance[n+1]:=distance[0];<BR>　　　for i:=1 to n 
+      do<BR>　　　　begin<BR>　　　　　write('Input 
+      d[',i,']','p[',i,']');<BR>　　　　　readln(distance[i],price[i])<BR>　　　　end;<BR>　　end;<BR>　procedure 
+      check;<BR>　　var i:integer;<BR>　　begin<BR>　　　distance[0]:=0;<BR>　　　for i:=0 
+      to n do consume[i]:=(distance[i+1]-distance[i])/distance2;<BR>　　　　for i:=0 
+      to n do<BR>　　　　　if consume[i]&gt;content then<BR>　　　　　　　begin writeln('No 
+      solution');<BR>　　　　　　　　halt;<BR>　　　　　　　end;<BR>　　end;<BR>　begin<BR>　　ini;<BR>　　check;<BR>　　money:=0;tail:=1;change:=0;<BR>　　oil[tail].price:=price[0]*2;oil[tail].content:=content;<BR>　　for 
+      i:=0 to n do<BR>　　begin 
+      point:=tail;<BR>　　　while(point&gt;=1)and(oil[point].price&gt;=price[i]) 
+      do<BR>　　　begin 
+      change:=change+oil[point].content;<BR>　　　　point:=point-1<BR>　　　end;<BR>　　　tail:=point+1;<BR>　　　oil[tail].price:=price[i];<BR>　　　oil[tail].content:=change;<BR>　　　use:=consume[1];point:=1;<BR>　　　while 
+      (use&gt;1e-6) and(point&lt;=tail) do<BR>　　　if 
+      use&gt;=oil[point].content<BR>　　　　then begin 
+      use:=use-oil[point].content;<BR>　　　　　　　money:=money+oil[point].content*oil[point].price;<BR>　　　　　　　point:=point+1<BR>　　　　　　end<BR>　　　　else 
+      begin<BR>　　　　　　　　oil[point].content:=oil[point].content-use;<BR>　　　　　　　　money:=money+use*oil[point].price;<BR>　　　　　　　　use:=0<BR>　　　　　　　end;<BR>　　　for 
+      j:=point to tail do 
+      oil[j-point+1]:=oil[j];<BR>　　　　tail:=tail-point+1;<BR>　　　change:=consume[i]<BR>　　end;<BR>　　writeln(money:0:2);<BR>　end.</FONT> 
+    </TD></TR></TBODY></TABLE></DIV>
+<DIV align=center></DIV></BODY></HTML>

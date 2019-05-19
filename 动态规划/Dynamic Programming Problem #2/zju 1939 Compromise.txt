@@ -1,0 +1,39 @@
+zju 1939 Compromise
+
+译文：
+
+输入两段文章，每段文章以一个"#"表示结束，
+
+求它们的最长公共子串。
+
+每段文章至多100个单词，每个单词全是小
+
+写字母，字母至多为30个字符。单词间用空格
+
+格开，没有标点符号。如果存在多个解，输出
+
+其中任一个。
+
+Sample Input
+
+die einkommen der landwirte
+sind fuer die abgeordneten ein buch mit sieben siegeln
+um dem abzuhelfen
+muessen dringend alle subventionsgesetze verbessert werden
+#
+die steuern auf vermoegen und einkommen
+sollten nach meinung der abgeordneten
+nachdruecklich erhoben werden
+dazu muessen die kontrollbefugnisse der finanzbehoerden
+dringend verbessert werden
+#
+
+Sample Output
+
+die einkommen der abgeordneten muessen dringend verbessert werden
+
+
+注意：输出的单词以一个空格格开。整个结果输出完毕后，要输出一个空行。
+
+数据如下：
+

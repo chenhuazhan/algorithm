@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0039)http://noi.stinfo.net/jdjc/jdjc_dt.html -->
+<HTML><HEAD><TITLE>递推运用及优化——黄皓论文</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb_2312-80">
+<META content="MSHTML 5.50.4134.100" name=GENERATOR><LINK 
+href="递推运用及优化——黄皓论文.files/js_css.css" type=text/css rel=stylesheet></HEAD>
+<BODY bgColor=#ffffff>
+<TABLE cellSpacing=0 width="98%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#ea003a>
+      <DIV align=center><A 
+      href="http://noi.stinfo.net/index.htm">首页</A>&gt;&gt;<A 
+      href="http://noi.stinfo.net/jdjc/jdjc.htm">经典集粹</A>&gt;&gt;2000集训队论文： <A 
+      href="http://noi.stinfo.net/jdjc/jdjc_cssj.htm">测试数据的设计</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&sup3;&Igrave;&ETH;ò&micro;÷&Ecirc;&Ocirc;&Ouml;&ETH;&sup2;&acirc;&Ecirc;&Ocirc;&Ecirc;&yacute;&frac34;&Yacute;&micro;&Auml;&Eacute;è&frac14;&AElig;&acute;÷&micro;&Acirc;&sup3;&ETH;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      <A href="http://noi.stinfo.net/jdjc/jdjc_ssjz.htm">搜索中的剪枝优化</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&Igrave;&cedil;&Euml;&Ntilde;&Euml;÷&Euml;&atilde;·¨&micro;&Auml;&frac14;&ocirc;&Ouml;&brvbar;&Oacute;&Aring;&raquo;&macr;&ETH;í&frac12;úì&Aring;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      <A href="http://noi.stinfo.net/jdjc/jdjc_dt.html">递推在程序设计中的应用</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&sup3;&Igrave;&ETH;ò&Eacute;è&frac14;&AElig;&Ouml;&ETH;&micro;&Auml;&micro;&Yacute;&Iacute;&AElig;&Ocirc;&Euml;&Oacute;&Atilde;&frac14;°&Oacute;&Aring;&raquo;&macr;&raquo;&AElig;&eth;&copy;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      <A href="http://noi.stinfo.net/jdjc/jdjc_gzf.htm">构造法解题</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&Ccedil;&sup3;&Igrave;&cedil;&sup1;&sup1;&Ocirc;ì·¨&frac12;&acirc;&Igrave;&acirc;&Aacute;&otilde;&frac14;&Icirc;é&ordf;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      </DIV></TD></TR></TBODY></TABLE>
+<P align=center>&nbsp;</P>
+<H3 align=center><FONT color=#ff0000><BIG>程序设计中的递推运用及优化</BIG></FONT></H3>
+<P align=center>黄皓 </P>
+<P>【一】递推定义.<BR>&nbsp;&nbsp;&nbsp;&nbsp; 一个状态可以和前面的状态联系起来,具体表示为: 
+一个数的序列H1,H2.H3……Hn,其中Hn可用H1……Hn-1来表示.</P>
+<P>【二】程序设计中的递推. <BR>&nbsp;&nbsp;&nbsp;&nbsp; Fibonacci数列 Hn = Hn-1 + Hn-2. 
+Fibonacci数列大家都非常熟悉,来源于中世纪数学家Fibonacci提出的一个问题: 
+一对刚出生的兔子过两个月后,可以繁殖一对新兔子,问原有雌雄各一只兔子,经过十一个月后,能繁殖多少只兔子. 
+就Fibonacci问题本身来说,并不是很难实现,但是程序设计中往往没有这么明显的递推关系,于是不少递推算法的题目都需要通过分析各种状态,寻求一条递推关系式. 
+</P>
+<P>【三】程序范例 <BR>1、邮票问题<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+设有已知面额的邮票m种,每种有n张,用总数不超过n张的邮票,能从面额1开始,最多连续组成多少面额.(1&lt;=m&lt;=100,1&lt;=n&lt;=100,1&lt;=邮票面额&lt;=255) 
+输入:n m A[1..m](面额) 输出:MAX=(最大面额值) Input1:4 1 2 4 Output1:10 
+一看到这个题目,给人的第一感觉是用回溯算法,从面额1开始,每种面额都用回溯进行判断,算法复杂度并不高,但是当m,n取到极限值100时,程序明显超时,因此,回溯算法在这里并不可取. 
+能否用递推完成呢?我们有一个思路:从面额1开始,建立递推关系方程,就用范例来说吧,面额1,2,4只用1张邮票行了,面额3可以表示为面额1,2的邮票和1+1=2,面额5有两种表示方式MIN(面额1+面额4,面额2+面额3),照此类推,递推关系方程不难建立,由于1&lt;=邮票面额&lt;=255,1&lt;=n&lt;=100,因此MAX值最多可达到25500,25500次循环里必定还有嵌套循环,因此算法不加优化,很难在规定时间内得出最优值.这就需要递推的算法优化. 
+一味递推不寻求算法优化,速度较之搜索提高不少,但一旦数据规模过大,很难在规定时间内得出最优值.就拿邮票问题来说,以下是递推的一种方法: 
+<BR><BR>{$A+,B-,D-,E+,F-,G-,I-,L-,N-,O-,P-,Q-,R-,S-,T-,V-,X+,Y-} {$M 
+16384,0,655360} <BR>program stamps;<BR>var f,fout:text; n,m,i,j,k:integer; 
+<BR>c:array [1..255] of integer; {面额} <BR>a:array [1..31000] of integer; {递推数组} 
+<BR>bl:boolean; <BR>procedure readfile; {读文件} 
+<BR>begin<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+assign(f,'STAMP.DAT'); <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+reset(f); 
+assign(fout,'STAMP.OUT');<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+rewrite(fout);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readln(f,n); 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+readln(f,m);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+bl:=true;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i:=1 to m do 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+begin<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+readln(f,c[i]);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+if c[i]=1 then bl:=false;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+end;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; close(f);<BR>end; 
+<BR>procedure work;<BR>begin<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if bl=true then 
+write(fout,'MAX=0') {不存在面额1时输出无解} <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else 
+begin<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i:=1; 
+a[i]:=1; <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; repeat 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+i:=i+1; 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+for j:=1 to m do 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+if ((i mod c[j]=0) and ((i div c[j])&lt;a[i])) 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+or (a[i]=0) {判断它能否被题目给定面额整除} then 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+a[i]:=i div 
+c[j];<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+for j:=1 to trunc(i/2) 
+do<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+if (a[j]+a[i-j]&lt;a[i]) then a[i]:=a[j]+a[i-j]; 
+{寻找(1&lt;=j&lt;=i),使A[j]+A[i-j]值最小}<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+until (a[i]&gt;n) or 
+(a[i]=0);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+write(fout,'MAX=',i-1); &nbsp;&nbsp;&nbsp;&nbsp; {输出}<BR>&nbsp; end;<BR>&nbsp; 
+close(fout);<BR>end;<BR>begin<BR>&nbsp; readfile;<BR>&nbsp; 
+work;<BR>end.<BR><BR>&nbsp;&nbsp;&nbsp; 
+这种递推方法原理是:对于某种要求得到的面额,判断它能否被题目给定面额整除，再寻找(1&lt;=j&lt;=i),使A[j]+A[i-j]值最小,求出凑成某种面额最少邮票数,算法虽然简单,但还可以进一步优化.何不将用m种面额邮票作循环,建立递推关系式:A[i]=MAX(A[I-C[j]]+1),于是当取到极限值时,程序循环减少了约1.6*10^8次循环,递推优化作用不言而喻,下面是改进后的程序: 
+</P><PRE>{$A+,B-,D+,E+,F-,G-,I+,L+,N-,O-,P-,Q-,R-,S-,T-,V-,X+}
+{$M 16384,0,655360}
+program stamps_pro;
+uses crt;
+var
+  x:array [1..255] of byte;
+  pieces:array [0..30000] of byte;
+  max,m,n,i,j:integer;
+  filename:string;
+  f:text;
+begin
+  {读文件}
+  assign(f,'STAMP.DAT'); reset(f);
+  readln(f,n); readln(f,m);
+  for i:=1 to m do readln(f,x[i]);
+  close(f);
+  fillchar(pieces,sizeof(pieces),0); max:=0;
+  {递推循环} 
+  repeat
+    max:=max+1;
+    {循环,建立递推关系式PIECES[i]=MAX(PIECES[I-X[j]]+1)}
+    for i:=1 to m do if max-x[i]&gt;=0 then
+    begin
+      if pieces[max]=0 then pieces[max]:=pieces[max-x[i]]+1;
+      if pieces[max]&gt;pieces[max-x[i]]+1 
+      then pieces[max]:=pieces[max-x[i]]+1;
+    end;
+    {输出无解}
+    if (pieces[max]=0) or (pieces[max]&gt;n) then
+    begin
+      writeln('MAX=',max-1); exit;
+    end;
+  until false;
+end.
+    程序优化后,运行四组测试数据时间如下: (测试机型:Pentium MMX 233) </PRE>
+<DIV align=center>
+<CENTER>
+<TABLE cellPadding=7 width=493 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=middle width=60>测试数据</TD>
+    <TD vAlign=top align=middle width=27>m</TD>
+    <TD vAlign=top align=middle width=35>N</TD>
+    <TD vAlign=top align=middle width=144>未优化程序运行时间(秒)</TD>
+    <TD vAlign=top align=middle width=137>优化程序运行时间(秒)</TD></TR>
+  <TR>
+    <TD vAlign=top align=middle width=60>1</TD>
+    <TD vAlign=top align=middle width=27>5</TD>
+    <TD vAlign=top align=middle width=35>10</TD>
+    <TD vAlign=top align=middle width=144>0.05</TD>
+    <TD vAlign=top align=middle width=137>0.11</TD></TR>
+  <TR>
+    <TD vAlign=top align=middle width=60>2</TD>
+    <TD vAlign=top align=middle width=27>3</TD>
+    <TD vAlign=top align=middle width=35>5</TD>
+    <TD vAlign=top align=middle width=144>0.06</TD>
+    <TD vAlign=top align=middle width=137>0.11</TD></TR>
+  <TR>
+    <TD vAlign=top align=middle width=60>3</TD>
+    <TD vAlign=top align=middle width=27>10</TD>
+    <TD vAlign=top align=middle width=35>20</TD>
+    <TD vAlign=top align=middle width=144>0.61</TD>
+    <TD vAlign=top align=middle width=137>0.17</TD></TR>
+  <TR>
+    <TD vAlign=top align=middle width=60>4</TD>
+    <TD vAlign=top align=middle width=27>70</TD>
+    <TD vAlign=top align=middle width=35>65</TD>
+    <TD vAlign=top align=middle width=144>6.75</TD>
+    <TD vAlign=top align=middle width=137>0.33</TD></TR>
+  <TR>
+    <TD vAlign=top align=middle width=60>5</TD>
+    <TD vAlign=top align=middle width=27>100</TD>
+    <TD vAlign=top align=middle width=35>100</TD>
+    <TD vAlign=top align=middle width=144>20.20</TD>
+    <TD vAlign=top align=middle 
+width=137>1.20</TD></TR></TBODY></TABLE></CENTER></DIV>
+<P>2、蜜蜂路线<BR>&nbsp;&nbsp;&nbsp; 
+一只蜜蜂在下图所示的数字上爬动,已知它只能从小数字爬到大数字,现要求蜜蜂从1开始爬到N(N为偶数),问有多少种爬行方法 1 3 5 7 9 11 13…… 2 
+4 6 8 10 12 14…… 
+此题是一条很典型的递推题,相比邮票问题无论从题目难度还是递推隐蔽程度来说都简单得多,很容易求出递归关系方程.但不妨先别急于编程,我们先拿起笔来算一下,不难求出爬到蜂房2有1种方法;可以从蜂房1或2爬到蜂房3,就有2种方法,蜂房4就有3种方法,蜂房5就有5种方法,蜂房6就有8种方法 
+……,1,2,3,5,8很容易联想到Fibonacci数列,编程只需短短的几句循环语句了. 递推与动态规划的</P>
+<P>【四】区别和相同点 <BR>&nbsp;&nbsp;&nbsp; 
+递推是指一个数的序列H1,H2.H3……Hn,其中Hn可用H1……Hn-1来表示.我们不难发现,递推也包括动态规划在内,动态规划实际上是一种特殊的递推方式,用数学式来表示就是:A={递推关系} 
+B={动态规划} B∪A=A. 动态规划和一般递推相同点在于: <BR>&nbsp;&nbsp;&nbsp; 
+1、无后效性<BR>&nbsp;&nbsp;&nbsp; 2、有边界条件<BR>&nbsp;&nbsp;&nbsp; 不同点在于: 
+1、一般递推边界条件很明显,动态规划边界条件比较隐蔽,容易被忽视<BR>&nbsp;&nbsp;&nbsp; 
+1、一般递推数学性较强,动态规划数学性相对较弱<BR>&nbsp;&nbsp;&nbsp; 2、一般递推一般不划分阶段,动态规划一般有较为明显的阶段</P>
+<P>【五】总结 <BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+从以上程序及数据测试时间我们可明显看出对于大数据,递推优化后运行时间大为减少,由此可见递推及其优化在信息学奥赛中的重要地位.我们不能找出一条对于所有题目都适用的 
+万能递推关系式.对于具体某一道题,要作具体分析,先找出题目中的重要条件,在这个基础上分析某一项与前面若干项的关系,然后找出边界条件.递推在信息学奥赛适用范围很广,因此适当使用递推,加以优化,对提高我们的程序设计水平和竞赛成绩都大有裨益. 
+<BR><BR>【参考书目】 <BR>&nbsp;&nbsp;&nbsp; 
+1、高寒蕊《递推关系的建立及在信息学竞赛中的应用》<BR>&nbsp;&nbsp;&nbsp; 
+2、郭嵩山主编《GDOI资料集第二集》<BR>&nbsp;&nbsp;&nbsp; 
+3、吴文虎王建德《青少年国际和全国信息学(计算机)奥林匹克竞赛辅导—组合数学的算法和程序设计》<BR>&nbsp;&nbsp;&nbsp; 
+4、吴文虎主编《信息学(计算机)奥林匹克》 </P>
+<TABLE cellSpacing=0 width="98%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#ea003a>
+      <DIV align=center><A 
+      href="http://noi.stinfo.net/index.htm">首页</A>&gt;&gt;<A 
+      href="http://noi.stinfo.net/jdjc/jdjc.htm">经典集粹</A>&gt;&gt;2000集训队论文： <A 
+      href="http://noi.stinfo.net/jdjc/jdjc_cssj.htm">测试数据的设计</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&sup3;&Igrave;&ETH;ò&micro;÷&Ecirc;&Ocirc;&Ouml;&ETH;&sup2;&acirc;&Ecirc;&Ocirc;&Ecirc;&yacute;&frac34;&Yacute;&micro;&Auml;&Eacute;è&frac14;&AElig;&acute;÷&micro;&Acirc;&sup3;&ETH;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      <A href="http://noi.stinfo.net/jdjc/jdjc_ssjz.htm">搜索中的剪枝优化</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&Igrave;&cedil;&Euml;&Ntilde;&Euml;÷&Euml;&atilde;·¨&micro;&Auml;&frac14;&ocirc;&Ouml;&brvbar;&Oacute;&Aring;&raquo;&macr;&ETH;í&frac12;úì&Aring;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      <A href="http://noi.stinfo.net/jdjc/jdjc_dt.html">递推在程序设计中的应用</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&sup3;&Igrave;&ETH;ò&Eacute;è&frac14;&AElig;&Ouml;&ETH;&micro;&Auml;&micro;&Yacute;&Iacute;&AElig;&Ocirc;&Euml;&Oacute;&Atilde;&frac14;°&Oacute;&Aring;&raquo;&macr;&raquo;&AElig;&eth;&copy;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      <A href="http://noi.stinfo.net/jdjc/jdjc_gzf.htm">构造法解题</A>(<A 
+      href="http://noi.stinfo.net/lunwen/&Ccedil;&sup3;&Igrave;&cedil;&sup1;&sup1;&Ocirc;ì·¨&frac12;&acirc;&Igrave;&acirc;&Aacute;&otilde;&frac14;&Icirc;é&ordf;&Acirc;&Ucirc;&Icirc;&Auml;.doc">下载</A>) 
+      </DIV></TD></TR></TBODY></TABLE>
+<P>&nbsp;</P></BODY></HTML>

@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www.chinaschool.org/aosai/lwjl/dtgh3.htm -->
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<STYLE type=text/css>A:link {
+	COLOR: #ffcc66; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #ffcc66; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ffcc66; TEXT-DECORATION: none
+}
+TH {
+	FONT-SIZE: 9pt
+}
+TD {
+	FONT-SIZE: 9pt
+}
+P {
+	FONT-SIZE: 9pt
+}
+EM {
+	COLOR: #3333ff
+}
+A.titlelink:link {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A.titlelink:visited {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A.titlelink:hover {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+.pt9 {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"
+}
+</STYLE>
+
+<SCRIPT language=JavaScript>
+
+<!-- 版本识别
+  var ns4
+  var ie4
+//-->
+
+
+<!-- 栏目
+  var channel = new Array("sgsy","mszx","xspd","jtjj","ykrd","jgtd","etly","jyxx","sgfwt","sglt");
+  var num=channel.length;
+//-->
+
+  var myyellow="#ffff00";
+  var mygreen="#99cc99";
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+  ns4=(document.layers)?true:false;
+  ie4=(document.all)?true:false;
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh3.files/setcolor_xspd.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh3.files/settitle_xspd.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh3.files/ad_banner_xspd.js"></SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+if(ns4)
+{
+  document.captureEvents(Event.MOUSEOVER)
+  document.captureEvents(Event.MOUSEOUT)
+  document.onmouseover = setColor
+  document.onmouseout = setColorOrg
+}
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh3.files/layer4ns_xspd.js"></SCRIPT>
+
+<META content="MSHTML 5.50.4134.100" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
+<TABLE class=title111 cellSpacing=0 cellPadding=0 width=777 align=center 
+border=0>
+  <TBODY>
+  <TR>
+    <TD width=271 background=dtgh3.files/hr2.gif height=70><IMG height=62 
+      src="dtgh3.files/sg_logo.gif" width=271></TD>
+    <TD width=508>
+      <DIV align=center><IMG height=68 src="dtgh3.files/title_sub.gif" 
+      width=504></DIV></TD></TR>
+  <TR>
+    <TD colSpan=2></TD></TR>
+  <TR>
+    <TD colSpan=2 height=15>
+      <P><IMG height=8 src="dtgh3.files/0905-1_06.gif" 
+  width="100%"></P></TD></TR></TBODY></TABLE>
+<DIV align=center>
+<DIV align=center>
+<TABLE style="FONT-SIZE: 11pt" height=372 cellSpacing=0 cellPadding=5 width=569 
+border=0>
+  <TBODY>
+  <TR>
+    <TD style="FONT-SIZE: 10pt; LINE-HEIGHT: 150%" width=548 
+      height=362><B><FONT color=#000080></FONT></B>
+      <P align=center><FONT 
+      style="FONT-SIZE: 15pt"><B>动态规划的状态表示(三)</B></FONT></P>
+      <P align=right><B>中国科技大学计算机系----黄浩达</B></P>
+      <P align=left><FONT 
+      color=#800080><B><BR></B></FONT><B>四、多路径问题的状态表示</B><BR><BR>　　动态规划是一个非常高效的算法，但是对于一些问题它并不是一个理想的算法，这里面的原因很多，最主要的原因是它的维数障碍。<BR>下面就多路径问题来说明这点。<BR><BR><B>问题四：</B><BR>　　 
+      存在一个数字梯形，最上层有m个数字，最底层有n个数字，每一层比上一层多一个数字，共有n-m+1层数字，如图是m=2, 
+      n=4的数字梯形。从顶到底有多条路径，每一步可沿左斜线向下或沿右斜线向下。路径所经过的数字之和称为路径得分，从顶到底的m条不相交路径的得分总和称为m条路径得分，求出最小的m路径得分。<BR><BR>2 
+      3 2 3&nbsp;<BR>3 4 5 3 4 5<BR>9 1 9 1 9 1 9 
+      1<BR>最小的m路径得分=15&nbsp;<BR><BR>　　显然，这个问题与问题一极其类似。<BR><BR>　　如果m=1, 
+      那就是问题一所要解决的问题。<BR><BR>　　如果m=2, 
+      与问题一采取的方法类似，可以用D[x,y,z]描述两条路径到达第x层y、z两个位置的总得分。状态转移方程是<BR>D[x,y,z] = 
+      Max{D[x-1,y,z],D[x-1,y,z-1],D[x-1,y-1,z],D[x-1,y-1,z-1]}<BR>+A[x,y]+A[x,z],&nbsp;<BR>D[1,y,z] 
+      = 
+      A[1,y]+A[1,z]<BR>&nbsp;<BR>　　当m&gt;=3时，可以采取类似m=2采用的状态表示。<BR>在状态转移方程中，第x层的得分只取决与x-1层的得分，利用这个性质，实现时只要用两个循环数组，空间复杂度为O(nm)。<BR><BR>　　当m恒定时，空间复杂度随n呈多项式变化。当n恒定时，随着m的增大空间复杂度呈指数形式增长。<BR>比如n=100 
+      ，<BR>当 m=2时，需要104 byte;<BR>当 m=3时，需要106 byte;<BR>当m=4时，需要108 
+      byte;<BR><BR>　　我们看到当m=3时,基本的堆空间就不够存储了。在这个问题中，空间需要增长极为迅速，同时时间复杂度也是指数阶的。目前动态规划无法有效地处理这类问题，科学家把动态规划这样的缺点称为动态规划的维数障碍。它是两方面的，包括空间和时间， 
+      但是在空间要求方面的障碍显得特别突出。<BR><BR>　　不论从空间上还是时间上考虑，动态规划的维数障碍是难以克服的，这就在很大程度上限制了动态规划的应用。所以，我们必须寻找其他的方法来解决这类问题。就这道题而言，网络流是一个高效的算法。我们可以用最小费用流来解决问题，流网络大致构造如下：<BR>把数字梯形看成是有向图，对任意数字U看成两个顶点u1、u2,容量c(u1,u2)=1, 
+      费用g(u1,u2)=U。若数字U沿对角线可到达数字V,则 c(u2,v1)=1, g(u2,v1)=0; 增加超级源s, 
+      对于第一层数字U分成的顶点u1, c(s,u1)=1, g(s,u1)=0; 增加超级汇t，对于最底层顶点U分成的顶点u2, 
+      c(u2,t)=1,g(u2,t)=0; 
+      其他顶点之间的容量为0。<BR><BR><B>五、总结</B><BR>　　动态规划实现并不复杂，适用于许多问题，在解决一般问题时是我们首选的算法之一。但是，动态规划的数学模型的建立不是件容易的事，其中最困难也最重要的是状态表示。通过以上分析，我们看到：<BR>1、动态规划的状态表示描述的子问题必须满足最优子结构性质，否则无法建立正确的动态规划模型。<BR>2、同一问题可能存在多种正确状态表示方法，它们对应的动态规划算法的性能各不相同，从中选择高效的状态表示是动态规划优化的一个重要内容。<BR>3、对同一状态表示而言，优化它的实现方法对改进动态规划性能很有意义。<BR>4、在应用动态规划方法解决问题时，应先估计问题的时间、空间，如果问题存在维数障碍，那么动态规划的状态表示很难满足较大规模问题的空间要求， 
+      我们必须另寻其他方法。<BR><BR><BR><BR><B>[参考书目]：</B><BR>算法与数据结构&nbsp;<BR>电子工业出版社（1998. 
+      1） 编著：傅清祥 王晓东<BR><BR></P>
+      <CENTER>
+      <HR>
+      </CENTER></TD>
+    <TD width=6 height=362>
+      <DIV align=center>
+      <TABLE height="98%" cellSpacing=0 cellPadding=0 width=1 bgColor=#ff9900 
+      border=0>
+        <TBODY>
+        <TR>
+          <TD width=1>　</TD></TR></TBODY></TABLE></DIV></TD>
+    <TD width=34 height=362></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=0 width=777 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle colSpan=2>&nbsp;</TD></TR>
+  <TR>
+    <TD class=unnamed2 align=middle colSpan=2><A 
+      href="http://www.chinaschool.org/index.asp">网站导航</A> | <A 
+      href="http://www.chinaschool.org/sggc/index.htm">关于曙光</A> | <A 
+      href="mailto:sgts@21cn.com">联系我们</A> | <A 
+      href="mailto:webmaster@chinaschool.org">请提意见</A> <BR>Copyright &copy; FuJian 
+      Sunshine Educational Info. Co.,Ltd.<BR>福建曙光教育资讯有限公司 版权所有 
+</TD></TR></TBODY></TABLE></DIV></DIV></BODY></HTML>

@@ -1,0 +1,34 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: loading - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\changhz\AppData\Local\Temp\RSP794A.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/loading.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\E快\算法设计\C++project\vcproject\第四章\装载问题\loading.cpp"
+]
+Creating command line "cl.exe @C:\Users\changhz\AppData\Local\Temp\RSP794A.tmp" 
+Creating temporary file "C:\Users\changhz\AppData\Local\Temp\RSP795A.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/loading.pdb" /debug /machine:I386 /out:"Debug/loading.exe" /pdbtype:sept 
+".\Debug\loading.obj"
+]
+Creating command line "link.exe @C:\Users\changhz\AppData\Local\Temp\RSP795A.tmp"
+<h3>Output Window</h3>
+Compiling...
+loading.cpp
+E:\E快\算法设计\C++project\vcproject\第四章\装载问题\loading.cpp(67) : warning C4101: 'temp' : unreferenced local variable
+        E:\E快\算法设计\C++project\vcproject\第四章\装载问题\loading.cpp(47) : see reference to function template instantiation 'void __cdecl SelectSort(float [],int *,int)' being compiled
+Linking...
+
+
+
+<h3>Results</h3>
+loading.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

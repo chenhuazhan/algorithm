@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www.chinaschool.org/aosai/lwjl/dtgh2.htm -->
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<STYLE type=text/css>A:link {
+	COLOR: #ffcc66; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #ffcc66; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ffcc66; TEXT-DECORATION: none
+}
+TH {
+	FONT-SIZE: 9pt
+}
+TD {
+	FONT-SIZE: 9pt
+}
+P {
+	FONT-SIZE: 9pt
+}
+EM {
+	COLOR: #3333ff
+}
+A.titlelink:link {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A.titlelink:visited {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A.titlelink:hover {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+.pt9 {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: "宋体"
+}
+</STYLE>
+
+<SCRIPT language=JavaScript>
+
+<!-- 版本识别
+  var ns4
+  var ie4
+//-->
+
+
+<!-- 栏目
+  var channel = new Array("sgsy","mszx","xspd","jtjj","ykrd","jgtd","etly","jyxx","sgfwt","sglt");
+  var num=channel.length;
+//-->
+
+  var myyellow="#ffff00";
+  var mygreen="#99cc99";
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+  ns4=(document.layers)?true:false;
+  ie4=(document.all)?true:false;
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh2.files/setcolor_xspd.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh2.files/settitle_xspd.js"></SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh2.files/ad_banner_xspd.js"></SCRIPT>
+
+<SCRIPT language=JavaScript>
+<!--
+if(ns4)
+{
+  document.captureEvents(Event.MOUSEOVER)
+  document.captureEvents(Event.MOUSEOUT)
+  document.onmouseover = setColor
+  document.onmouseout = setColorOrg
+}
+//-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript src="dtgh2.files/layer4ns_xspd.js"></SCRIPT>
+
+<META content="MSHTML 5.50.4134.100" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
+<TABLE class=title111 cellSpacing=0 cellPadding=0 width=777 align=center 
+border=0>
+  <TBODY>
+  <TR>
+    <TD width=271 background=dtgh2.files/hr2.gif height=70><IMG height=62 
+      src="dtgh2.files/sg_logo.gif" width=271></TD>
+    <TD width=508>
+      <DIV align=center><IMG height=68 src="dtgh2.files/title_sub.gif" 
+      width=504></DIV></TD></TR>
+  <TR>
+    <TD colSpan=2></TD></TR>
+  <TR>
+    <TD colSpan=2 height=15>
+      <P><IMG height=8 src="dtgh2.files/0905-1_06.gif" 
+  width="100%"></P></TD></TR></TBODY></TABLE>
+<DIV align=center>
+<DIV align=center>
+<TABLE style="FONT-SIZE: 11pt" height=372 cellSpacing=0 cellPadding=5 width=569 
+border=0>
+  <TBODY>
+  <TR>
+    <TD style="FONT-SIZE: 10pt; LINE-HEIGHT: 150%" width=548 
+      height=362><B><FONT color=#000080></FONT></B>
+      <P align=center><FONT 
+      style="FONT-SIZE: 15pt"><B>动态规划的状态表示(二)</B></FONT></P>
+      <P align=right><B>中国科技大学计算机系----黄浩达</B></P>
+      <P align=left><FONT 
+      color=#800080><B><BR></B></FONT><B>三、状态表示对动态规划性能的影响</B><BR><BR>　　我们分析问题的时候，总是从不同的角度去思考，以便能全面、本质地认识问题。分析问题的状态表示，我们也是尽可能从不同角度去思考。由此会得到对问题的不同状态表示，从动态规划原理来看，其中有些状态表示不能合乎要求，而在满足要求的那些状态表示中，我们可以以之为基础，构造动态规划模型，实现动态规划算法。在通常情况下，基于不同的状态表示的动态规划算法性能存在着差异，这主要从算法的时间复杂度和空间复杂度体现出来。<BR>上面介绍了问题二的两种状态表示， 
+      状态表示2-1从问题的自然特征来思考， 
+      提出对一般多边形的表示方法，具有其通用性，状态表示2-2则根据多边形划分中关于顶点划分的性质来思考，进而提出了半连续多边形， 
+      现在我们考虑关于多边形边的划分性质，提出状态表示2-3， 
+      并比较三种状态表示，探讨状态表示对动态规划性能的影响。<BR><BR>状态表示2-3<BR>定义2-3 
+      多边形（A1,A2,…,Ak）是由多边形（1，2，…，N）划分而来的多边形，我们称多边形（A1,A2,…,Ak）为连续多边形，当且仅当Ai+1 = 
+      Ai+1 ,<BR>k&gt;i &gt;0。图6中多边形（3，4，5，6，7）就是一个连续多边形。<BR>性质2-3 
+      对于一个多边形，它的任一条边一定与另一个顶点组成三角形。如图5，边（1，2）可以与顶点4等顶点相连，形成三角形。&nbsp;<BR>根据性质2-3， 
+      对多边形划分时，我们可以按需要选择边来与其他顶点相连，而不会遗漏多边形的任一种划分，自然也不会遗漏多边形的最优划分。<BR><BR>　　 
+      连续多边形（X，X+1，,…,Y）可以用二元组（X,Y）来表示，则D(X,Y)表示连续多边形的划分区域数。<BR>　　对于连续多边形（X，Y），只要我们选择边（X，Y）与顶点Z(X&lt;Z&lt;Y)连接，那么（X，Y）划分为三部分：连续多边形（X，Z）、连续多边形（Z，Y）和三角形（X,Z,Y）。（X，Y）的最优划分包含了（X，Z）、（Z，Y）的最优划分，满足最优子结构性质。<BR>注意到初始多边形是一个连续多边形，根据数学归纳法，它的子问题都是连续多边形。因此二元组（X，Y）是一个正确的状态表示。状态转移方程为<BR>D(X,Y) 
+      = min(g(X,Y,Z) + D(X,Z)+D(Z,Y)), X&lt;Z&lt;Y,<BR>f(i,i) = 0, 
+      n+1&gt;i&gt;0,<BR>当x,y,z在一条直线时，g(x,y,z) = 0, 否则g(x,y,z) = 
+      1。<BR>子问题空间复杂度是O（n2），在本文的假设条件下，使用基本堆空间可以处理顶点数700以内的多边形。下面是求连续多边形最优划分区域数的函数。<BR>[算法2-3]：<BR>function 
+      Dynamic(s, t : integer) : integer; {求连续多边形（s,t）的最优划分}<BR>var j, tot : 
+      integer;<BR>begin<BR>if D[s, t][1] = 255 then<BR>if t - s = 1 then D[s, 
+      t][1] := 0&nbsp;<BR>else<BR>begin<BR>for j := s + 1 to t - 1 do {j 
+      是边（s,t）要连接的顶点}<BR>if 顶点j与顶点s、t连接合法 then<BR>begin<BR>Tot := Dynamic(s, j) + 
+      Dynamic(j, t); {子多边形的最优划分}<BR>If 顶点s、t、j不在一条直线上 then Tot := Tot + 
+      1;&nbsp;<BR>if Tot &lt; D[s, t][1] then<BR>begin<BR>D[s, t][1] := 
+      Tot;<BR>D[s, t][2] := j;<BR>end;<BR>end;<BR>end;<BR>Dynamic := D[s, 
+      t][1];<BR>end;<BR><BR><BR><BR><BR>图7<BR>我们来比较三种状态表示描述的子问题空间以及相应动态规划算法的时空性能。在图7中，动态规划的时间复杂度、空间复杂度与子问题空间增长是同阶的。事实上，这样的关系不仅仅局限于这个例子，它具有普遍意义。首先，动态规划空间花费主要是用来存储描述子问题的状态表示，因此空间复杂度自然随着子问题的增多而增大。其次，动态规划的时间花费主要取决于要解决的不同子问题的数目，随着子问题数目的增多，时间复杂度当然就增大了。<BR>既然不同的状态表示会描述不同大小的子问题空间，那么原因何在呢？在这道题中，我们仅仅从多边形的定义来看，有这样的关系：{连续多边形} 
+      是{半连续多边形}的子集，{半连续多边形}是{多边形}的子集。由此可知，应该是状态表示描述子问题不精确造成。<BR>回顾状态表示2-1和状态表示2-2、2-3的分析，我们之所以采取状态表示2-1 
+      是基于对多边形自然特征的认识，而没有考虑到在特定环境下多边形划分而成的子多边形与多边形本身有特殊的联系。比较状态表示2-2、2-3，两者都利用了多边形划分的性质，但显然研究的深度不同。状态表示2-3保证了每种划分都是对多边形的不同划分，因为至少有一条边所在的三角形是与其他划分中所在的三角形不一样。状态2-2就不能保证这一点，如下图所示的两种划分顺序得出了同一种划分。因为这种无意义的划分而产生的多边形属于{半连续多边形}-{连续多边形}，如半连续多边形（1，3，5）。<BR><BR><BR>状态表示的改进不仅仅使动态规划的性能提高，通常也会使算法实现更加简洁。比较算法[2-2]、[2-3]我们就可以看出这一点。算法[2-3]的程序见附录。<BR>以上，我们主要讨论状态表示描述的子问题空间不同而影响动态规划。这是状态表示影响动态规划性能的主要原因，但是在算法实现过程中，由于某种原因我们可能对同一子问题采取了不同的描述方法，存储空间会产生极大的差异。下面这个例子说明了这个问题。<BR>问题三： 
+      “#”这个操作符被定义为一个双目运算符，且两个运算对象为正整数，对于整数X，Y，# 
+      号运算定义为（X#Y）=十进制数X各数字之和*十进制数Y的最大数字+十进制数Y的最小数字。例<BR>（9#30）=9*3+0=27，（30#9）=3*9+9=36<BR>对于表达式我们约定或是一正数或是（表达式#表达式）。以下表达式是合法的表达式<BR>a<BR>(a#a)<BR>((a#a)#a)<BR>(a#(a#a)#(a#a)#a))<BR>对于给定的十进制正数a和表达式的值K，计算具有K值的表达式中“#”的个数。具有k值的表达式可能有许多，并且具有不同的#个数，只需输出最小个数。a，k是均不大于1000000000的正整数。<BR><BR>运算时，我们描述的是正整数k的各位数字和、最大数字和最小数字两个信息（这里把最大、最小数字看成一个信息）以及得到k所用的最少 
+      # 数，那么可以有两种状态表示。<BR>状态表示3-1<BR>我们用一元组（k）表示正数k, 
+      D(k)表示所用的#数目。(k)已经隐含了各数字和、最大数字和最小数字两个信息。<BR>状态表示3-2<BR>因为对每个数而言，各位数字和与最大数字、最小数字两个信息具有独立性，我们可以分别记录这两个信息。用一元组（X）表示各位数字和，用二元组（Y,Z）表示最大数字、最小数字。<BR>我们对输入的数a进行特殊处理，而一次运算后的最大数字不超过738，状态表示3-1只要开一个数组，定义如下<BR>Type 
+      NumBerType = array[1..738] of 
+      integer&nbsp;<BR>因为一次运算后的数值最大是三位数，各位数值和不超过27，用来存储数值和的数组可定义为<BR>Type 
+      TotalType = array[1..27] of 
+      integer<BR>最大数字、最小数字与数大小无关，它们范围在[0，9]，定义为<BR>Type MaxMinType = 
+      array[0..9,0..9] of 
+      integer&nbsp;<BR>状态表示3-1用一元组同时记录了两个信息，而状态表示3-2则分别记录了这两个信息。显然状态表示3-2所用的空间比状态表示3-1所用的要小的多。同样一个对象，只是由于我们采取不同的描述方法，所用的空间大小就迥然不同。程序见附录。<BR><BR>综上所述，状态表示对动态规划的性能的影响是多方面的。因此，在解决问题时，从各方面比较状态表示，根据具体情况选择高效的状态表示，才能进一步优化动态规划。<BR></P>
+      <CENTER>
+      <CENTER>
+      <HR>
+      </CENTER></CENTER></TD>
+    <TD width=6 height=362>
+      <DIV align=center>
+      <TABLE height="98%" cellSpacing=0 cellPadding=0 width=1 bgColor=#ff9900 
+      border=0>
+        <TBODY>
+        <TR>
+          <TD width=1>　</TD></TR></TBODY></TABLE></DIV></TD>
+    <TD width=34 height=362></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=0 width=777 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD align=middle colSpan=2>&nbsp;</TD></TR>
+  <TR>
+    <TD class=unnamed2 align=middle colSpan=2><A 
+      href="http://www.chinaschool.org/index.asp">网站导航</A> | <A 
+      href="http://www.chinaschool.org/sggc/index.htm">关于曙光</A> | <A 
+      href="mailto:sgts@21cn.com">联系我们</A> | <A 
+      href="mailto:webmaster@chinaschool.org">请提意见</A> <BR>Copyright &copy; FuJian 
+      Sunshine Educational Info. Co.,Ltd.<BR>福建曙光教育资讯有限公司 版权所有 
+</TD></TR></TBODY></TABLE></DIV></DIV></BODY></HTML>

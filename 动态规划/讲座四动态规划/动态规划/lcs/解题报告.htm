@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0065)http://algorithm.myrice.com/problems/problem_set/LCS/solution.htm --><HTML><HEAD><TITLE>算法与数据结构——最长公共子序列问题LCS</TITLE><!-- #BeginTemplate "/Templates/article_template.dwt" -->
+<META content="text/html; charset=gb2312" http-equiv=Content-Type>
+<META 
+content="algorithm, data structure, contest, programming, 算法, 数据结构, 程序设计, 竞赛" 
+name=keywords>
+<META 
+content="discussing the algorithm and data structure of computer programming, as well as all kinds of programming contest." 
+name=description>
+<META content=讨论程序设计的算法与数据结构，各类程序设计竞赛试题解析和参赛经验介绍。 name=description><!-- #BeginEditable "doctitle" --><!-- #EndEditable -->
+<SCRIPT id=header language=JavaScript src="解题报告.files/header.js"></SCRIPT>
+<!-- #BeginEditable "javascript" -->
+<SCRIPT language=JavaScript>
+var previous = "end";
+var next = "end";
+var contents="";
+var topic="";
+</SCRIPT>
+<!-- #EndEditable -->
+<META content="MSHTML 5.00.2920.0" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<DIV id=content><!-- #BeginEditable "MainContent" -->
+<H2>最长公共子序列问题LCS</H2>
+<H3><A 
+href="http://algorithm.myrice.com/problems/problem_set/LCS/problem.htm">问题描述</A></H3>
+<H3>参考解答</H3>
+<P>动态规划算法可有效地解此问题。下面我们按照动态规划算法设计的各个步骤来设计一个解此问题的有效算法。</P>
+<H4>1.最长公共子序列的结构</H4>
+<P>解最长公共子序列问题时最容易想到的算法是穷举搜索法，即对X的每一个子序列，检查它是否也是Y的子序列，从而确定它是否为X和Y的公共子序列，并且在检查过程中选出最长的公共子序列。X的所有子序列都检查过后即可求出X和Y的最长公共子序列。X的一个子序列相应于下标序列{1, 
+2, …, m}的一个子序列，因此，X共有2<SUP>m</SUP>个不同子序列，从而穷举搜索法需要指数时间。</P>
+<P>事实上，最长公共子序列问题也有最优子结构性质，因为我们有如下定理：</P>
+<P><B>定理: <A name=th></A></B>LCS的最优子结构性质</P>
+<P>设序列X=&lt;x<SUB>1</SUB>, x<SUB>2</SUB>, …, 
+x<SUB>m</SUB>&gt;和Y=&lt;y<SUB>1</SUB>, y<SUB>2</SUB>, …, 
+y<SUB>n</SUB>&gt;的一个最长公共子序列Z=&lt;z<SUB>1</SUB>, z<SUB>2</SUB>, …, 
+z<SUB>k</SUB>&gt;，则：</P>
+<BLOCKQUOTE>
+  <OL>
+    <LI>若x<SUB>m</SUB>=y<SUB>n</SUB>，则z<SUB>k</SUB>=x<SUB>m</SUB>=y<SUB>n</SUB>且Z<SUB>k-1</SUB>是X<SUB>m-1</SUB>和Y<SUB>n-1</SUB>的最长公共子序列； 
+
+    <LI>若x<SUB>m</SUB>≠y<SUB>n</SUB>且z<SUB>k</SUB>≠x<SUB>m 
+    ，</SUB>则Z是X<SUB>m-1</SUB>和Y的最长公共子序列； 
+    <LI>若x<SUB>m</SUB>≠y<SUB>n</SUB>且z<SUB>k</SUB>≠y<SUB>n</SUB> 
+    ，则Z是X和Y<SUB>n-1</SUB>的最长公共子序列。 </LI></OL></BLOCKQUOTE>
+<P>其中X<SUB>m-1</SUB>=&lt;x<SUB>1</SUB>, x<SUB>2</SUB>, …, 
+x<SUB>m-1</SUB>&gt;，Y<SUB>n-1</SUB>=&lt;y<SUB>1</SUB>, y<SUB>2</SUB>, …, 
+y<SUB>n-1</SUB>&gt;，Z<SUB>k-1</SUB>=&lt;z<SUB>1</SUB>, z<SUB>2</SUB>, …, 
+z<SUB>k-1</SUB>&gt;。</P>
+<P><B>证明</B></P>
+<OL>
+  <LI>用反证法。若z<SUB>k</SUB>≠x<SUB>m</SUB>，则&lt;z<SUB>1</SUB>, z<SUB>2</SUB>, …, 
+  z<SUB>k </SUB>,x<SUB>m 
+  </SUB>&gt;是X和Y的长度为k十1的公共子序列。这与Z是X和Y的一个最长公共子序列矛盾。因此，必有z<SUB>k</SUB>=x<SUB>m</SUB>=y<SUB>n</SUB>。由此可知Z<SUB>k-1</SUB>是X<SUB>m-1</SUB>和Y<SUB>n-1</SUB>的一个长度为k-1的公共子序列。若X<SUB>m-1</SUB>和Y<SUB>n-1</SUB>有一个长度大于k-1的公共子序列W，则将x<SUB>m</SUB>加在其尾部将产生X和Y的一个长度大于k的公共子序列。此为矛盾。故Z<SUB>k-1</SUB>是X<SUB>m-1</SUB>和Y<SUB>n-1</SUB>的一个最长公共子序列。 
+
+  <LI>由于z<SUB>k</SUB>≠x<SUB>m</SUB>，Z是X<SUB>m-1</SUB>和Y的一个公共子序列。若X<SUB>m-1</SUB>和Y有一个长度大于k的公共子序列W，则W也是X和Y的一个长度大于k的公共子序列。这与Z是X和Y的一个最长公共子序列矛盾。由此即知Z是X<SUB>m-1</SUB>和Y的一个最长公共子序列。 
+
+  <LI>与 2.类似。 </LI></OL>
+<P>这个定理告诉我们，两个序列的最长公共子序列包含了这两个序列的前缀的最长公共子序列。因此，最长公共子序列问题具有<A 
+href="http://algorithm.myrice.com/algorithm/technique/dynamic_programming/chapter3.htm#optimality">最优子结构性质</A>。</P>
+<H4>2.子问题的递归结构</H4>
+<P>由最长公共子序列问题的最优子结构性质可知，要找出X=&lt;x<SUB>1</SUB>, x<SUB>2</SUB>, …, 
+x<SUB>m</SUB>&gt;和Y=&lt;y<SUB>1</SUB>, y<SUB>2</SUB>, …, 
+y<SUB>n</SUB>&gt;的最长公共子序列，可按以下方式递归地进行：当x<SUB>m</SUB>=y<SUB>n</SUB>时，找出X<SUB>m-1</SUB>和Y<SUB>n-1</SUB>的最长公共子序列，然后在其尾部加上x<SUB>m</SUB>(=y<SUB>n</SUB>)即可得X和Y的一个最长公共子序列。当x<SUB>m</SUB>≠y<SUB>n</SUB>时，必须解两个子问题，即找出X<SUB>m-1</SUB>和Y的一个最长公共子序列及X和Y<SUB>n-1</SUB>的一个最长公共子序列。这两个公共子序列中较长者即为X和Y的一个最长公共子序列。</P>
+<P>由此递归结构容易看到最长公共子序列问题具有<A 
+href="http://algorithm.myrice.com/algorithm/technique/dynamic_programming/chapter3.htm#repeate">子问题重叠性质</A>。例如，在计算X和Y的最长公共子序列时，可能要计算出X和Y<SUB>n-1</SUB>及X<SUB>m-1</SUB>和Y的最长公共子序列。而这两个子问题都包含一个公共子问题，即计算X<SUB>m-1</SUB>和Y<SUB>n-1</SUB>的最长公共子序列。</P>
+<P>与矩阵连乘积最优计算次序问题类似，我们来建立子问题的最优值的递归关系。用c[i,j]记录序列X<SUB>i</SUB>和Y<SUB>j</SUB>的最长公共子序列的长度。其中X<SUB>i</SUB>=&lt;x<SUB>1</SUB>, 
+x<SUB>2</SUB>, …, x<SUB>i</SUB>&gt;，Y<SUB>j</SUB>=&lt;y<SUB>1</SUB>, 
+y<SUB>2</SUB>, …, 
+y<SUB>j</SUB>&gt;。当i=0或j=0时，空序列是X<SUB>i</SUB>和Y<SUB>j</SUB>的最长公共子序列，故c[i,j]=0。其他情况下，由<A 
+href="http://algorithm.myrice.com/problems/problem_set/LCS/solution.htm#th">定理</A>可建立递归关系如下：</P>
+<P><IMG border=0 height=75 src="解题报告.files/dy1.gif" width=512></P>
+<H4>3.计算最优值</H4>
+<P>直接利用(2.2)式容易写出一个计算c[i,j]的递归算法，但其计算时间是随输入长度指数增长的。由于在所考虑的子问题空间中，总共只有<I>θ</I>(<I>m*n</I>)个不同的子问题，因此，用动态规划算法自底向上地计算最优值能提高算法的效率。</P>
+<P>计算最长公共子序列长度的动态规划算法LCS_LENGTH(X,Y)以序列X=&lt;x<SUB>1</SUB>, x<SUB>2</SUB>, …, 
+x<SUB>m</SUB>&gt;和Y=&lt;y<SUB>1</SUB>, y<SUB>2</SUB>, …, 
+y<SUB>n</SUB>&gt;作为输入。输出两个数组c[0..m ,0..n]和b[1..m 
+,1..n]。其中c[i,j]存储X<SUB>i</SUB>与Y<SUB>j</SUB>的最长公共子序列的长度，b[i,j]记录指示c[i,j]的值是由哪一个子问题的解达到的，这在构造最长公共子序列时要用到。最后，X和Y的最长公共子序列的长度记录于c[m,n]中。</P><PRE>Procedure LCS_LENGTH(X,Y);<BR>begin<BR>  m:=length[X];<BR>  n:=length[Y];<BR>  for i:=1 to m do c[i,j]:=0;<BR>  for j:=1 to n do c[0,j]:=0;<BR>  for i:=1 to m do<BR>    for j:=1 to n do<BR>      if x[i]=y[j] then<BR>        begin<BR>          c[i,j]:=c[i-1,j-1]+1;<BR>          b[i,j]:="↖";<BR>        end<BR>      else if c[i-1,j]≥c[i,j-1] then<BR>        begin<BR>          c[i,j]:=c[i-1,j];<BR>          b[i,j]:="↑";<BR>        end<BR>      else<BR>        begin<BR>          c[i,j]:=c[i,j-1];<BR>          b[i,j]:="←"<BR>        end;<BR>  return(c,b);<BR>end;</PRE>
+<P>由于每个数组单元的计算耗费<I>Ο</I>(1)时间，算法LCS_LENGTH耗时<I>Ο</I>(<I>mn</I>)。</P>
+<H4>4.构造最长公共子序列</H4>
+<P>由算法LCS_LENGTH计算得到的数组b可用于快速构造序列X=&lt;x<SUB>1</SUB>, x<SUB>2</SUB>, …, 
+x<SUB>m</SUB>&gt;和Y=&lt;y<SUB>1</SUB>, y<SUB>2</SUB>, …, 
+y<SUB>n</SUB>&gt;的最长公共子序列。首先从b[m,n]开始，沿着其中的箭头所指的方向在数组b中搜索。当b[i,j]中遇到"↖"时，表示X<SUB>i</SUB>与Y<SUB>j</SUB>的最长公共子序列是由X<SUB>i-1</SUB>与Y<SUB>j-1</SUB>的最长公共子序列在尾部加上x<SUB>i</SUB>得到的子序列；当b[i,j]中遇到"↑"时，表示X<SUB>i</SUB>与Y<SUB>j</SUB>的最长公共子序列和X<SUB>i-1</SUB>与Y<SUB>j</SUB>的最长公共子序列相同；当b[i,j]中遇到"←"时，表示X<SUB>i</SUB>与Y<SUB>j</SUB>的最长公共子序列和X<SUB>i</SUB>与Y<SUB>j-1</SUB>的最长公共子序列相同。</P>
+<P>下面的算法LCS(b,X,i,j)实现根据b的内容打印出X<SUB>i</SUB>与Y<SUB>j</SUB>的最长公共子序列。通过算法的调用LCS(b,X,length[X],length[Y])，便可打印出序列X和Y的最长公共子序列。</P><PRE>Procedure LCS(b,X,i,j);<BR>begin<BR>  if i=0 or j=0 then return;<BR>  if b[i,j]="↖" then<BR>    begin<BR>      LCS(b,X,i-1,j-1);<BR>      print(x[i]); {打印x[i]}<BR>    end<BR>  else if b[i,j]="↑" then LCS(b,X,i-1,j) 
+                      else LCS(b,X,i,j-1);<BR>end; </PRE>
+<P>在算法LCS中，每一次的递归调用使i或j减1，因此算法的计算时间为<I>O</I>(m+n)。</P>
+<P>例如，设所给的两个序列为X=&lt;A，B，C，B，D，A，B&gt;和Y=&lt;B，D，C，A，B，A&gt;。由算法LCS_LENGTH和LCS计算出的结果如图2所示。</P>
+<P style="MARGIN-BOTTOM: 0px; MARGIN-TOP: 0px">　</P>
+<DIV align=center>
+<CENTER>
+<TABLE border=0 cellPadding=0 cellSpacing=0>
+  <TBODY>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center>j</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>4</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>5</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>6</TD>
+    <TD align=middle vAlign=center></TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>i</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>y<SUB>j</SUB></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>B</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>D</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>C</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>A</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>B</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>A</TD>
+    <TD align=middle vAlign=center></TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>┌</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>┐</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>0</TD>
+    <TD align=middle vAlign=center>x<SUB>i</SUB></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>1</TD>
+    <TD align=middle vAlign=center>A</TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center>←</TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>2</TD>
+    <TD align=middle vAlign=center>B</TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center>←</TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center>←</TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center>←</TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>3</TD>
+    <TD align=middle vAlign=center>C</TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center>←</TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>4</TD>
+    <TD align=middle vAlign=center>B</TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center>←</TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>5</TD>
+    <TD align=middle vAlign=center>D</TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>6</TD>
+    <TD align=middle vAlign=center>A</TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>4</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>↖</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>↑</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30>7</TD>
+    <TD align=middle vAlign=center>B</TD>
+    <TD align=middle vAlign=center>│</TD>
+    <TD align=middle vAlign=center>0</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>1</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>2</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>3</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>4</TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>5</TD>
+    <TD align=middle vAlign=center>│</TD></TR>
+  <TR>
+    <TD align=middle vAlign=center width=30></TD>
+    <TD align=middle vAlign=center></TD>
+    <TD align=middle vAlign=center>└</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>─</TD>
+    <TD align=middle vAlign=center>┘</TD></TR></TBODY></TABLE></CENTER></DIV>
+<P style="MARGIN-BOTTOM: 0px; MARGIN-TOP: 0px">　</P>
+<P align=center><FONT size=2>图2&nbsp;&nbsp; 算法LCS的计算结果</FONT></P>
+<H4>5.算法的改进</H4>
+<P>对于一个具体问题，按照一般的算法设计策略设计出的算法，往往在算法的时间和空间需求上还可以改进。这种改进，通常是利用具体问题的一些特殊性。</P>
+<P>例如，在算法LCS_LENGTH和LCS中，可进一步将数组b省去。事实上，数组元素c[i,j]的值仅由c[i-1,j-1]，c[i-1,j]和c[i,j-1]三个值之一确定，而数组元素b[i,j]也只是用来指示c[i,j]究竟由哪个值确定。因此，在算法LCS中，我们可以不借助于数组b而借助于数组c本身临时判断c[i,j]的值是由c[i-1,j-1]，c[i-1,j]和c[i,j-1]中哪一个数值元素所确定，代价是<I>Ο</I>(1)时间。既然b对于算法LCS不是必要的，那么算法LCS_LENGTH便不必保存它。这一来，可节省<I>θ</I>(mn)的空间，而LCS_LENGTH和LCS所需要的时间分别仍然是<I>Ο</I>(mn)和<I>Ο</I>(m+n)。不过，由于数组c仍需要<I>Ο</I>(mn)的空间，因此这里所作的改进，只是在空间复杂性的常数因子上的改进。</P>
+<P>另外，如果只需要计算最长公共子序列的长度，则算法的空间需求还可大大减少。事实上，在计算c[i,j]时，只用到数组c的第i行和第i-1行。因此，只要用2行的数组空间就可以计算出最长公共子序列的长度。更进一步的分析还可将空间需求减至min(m, 
+n)。</P>
+<H3>&nbsp;</H3><!-- #EndEditable --></DIV>
+<SCRIPT src="解题报告.files/footer.js">
+</SCRIPT>
+<!-- #EndTemplate --></BODY></HTML>

@@ -1,0 +1,40 @@
+zju 1827 The Game of 31 31点的游戏
+
+
+--------------------------------------------------------------------------------
+
+Time limit: 1 Seconds   Memory limit: 32768K 
+  Total Submit: 114   Accepted Submit: 58   
+桌子上摊放着24张牌，1--6各有4张，
+a,b二个轮流从上面拿走一张，放到一个堆中。
+游戏的规则就是：谁拿走一张，并拿到堆中后。
+他后面的人不管怎么样牌，堆中的牌的总值将
+超过31.设a,b在游戏中都是足够聪明，采用最
+好的策略.
+在下面这个例子中，b将最终胜出。
+Player A plays 3
+Player B plays 5
+Player A plays 6
+Player B plays 6
+Player A plays 5
+Player B plays 6
+
+现给出一串数字，代表游戏的进程。请问谁将取
+得最后的胜利.
+
+Sample Input
+
+356656
+35665
+3566
+111126666
+552525
+
+Sample Output
+
+356656 B
+35665 B
+3566 A
+111126666 A
+552525 A
+

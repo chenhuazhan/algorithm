@@ -1,0 +1,27 @@
+zju1893 A Multiplication Game
+
+
+--------------------------------------------------------------------------------
+
+Time limit: 1 Seconds   Memory limit: 32768K   
+Total Submit: 292   Accepted Submit: 162  
+Stan和Ollie在玩一个乘法的游戏。他们轮流对一个正整数 p 乘上2到9中的一个数。游戏开始时，p=1且由Stan先开始。Stan乘完后换Ollie乘，然后再换Stan乘，如此一直下去。游戏一开始时他们也订了一个整数 n （1 < n < 4294967295），谁先乘上一个2到9的数，使得 p>= n，他就是游戏的赢家。
+Input
+每组测试数据一列，含有1个整数 n。 
+Output
+每组测试数据输出一列，输出赢家是谁。 
+你应该要假设这两个人都是很厉害的玩家（就是说，如果可以赢的话，绝对不会有失误）。
+
+Sample Input
+
+162
+17
+34012226
+
+
+Sample Output
+
+Stan wins.
+Ollie wins.
+Stan wins.
+

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0056)http://www.yizhong.xm.fj.cn/student/as/shijl/sf/sf52.htm -->
+<HTML><HEAD><TITLE>Untitled Document</TITLE><!-- #BeginEditable "doctitle" --><!-- #EndEditable -->
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<STYLE type=text/css>.9p {
+	FONT-SIZE: 9pt
+}
+</STYLE>
+
+<META content="MSHTML 5.50.4134.100" name=GENERATOR></HEAD>
+<BODY class=9p bgColor=#ffffff>
+<DIV class=9p align=center><BR>
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR bgColor=#ffffff>
+    <TD width="8%"><FONT color=#cccccc><IMG height=60 src="d2.files/logo1.jpg" 
+      width=190></FONT></TD>
+    <TD width="92%"><FONT color=#cccccc><IMG height=60 
+      src="d2.files/logo2.jpg" width=570></FONT></TD></TR></TBODY></TABLE>
+<TABLE borderColor=#ccccff height=22 cellSpacing=0 borderColorDark=#ffffff 
+cellPadding=0 width="100%" bgColor=#ccccff borderColorLight=#000000 border=1>
+  <TBODY>
+  <TR>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/index.htm">返回首页</A></FONT></TD>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/sf/sf0.htm">算法园地</A></FONT></TD>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      target=_blank href="http://shijl.abc.yesite.com/">编程论坛</A></FONT></TD>
+    <TD align=middle width="14%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/wt/wt.htm">问题解答</A></FONT></TD>
+    <TD align=middle width="15%" height=19><FONT color=#0000ff size=2><A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/lx/lx.htm">经典习题</A></FONT></TD>
+    <TD align=middle width="15%" height=19><FONT color=#0000ff size=2><A 
+      href="mailto:shijl@126.com">写信给我</A></FONT></TD></TR></TBODY></TABLE>
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD height=2>
+      <DIV align=right><FONT class=9p color=#0000cc>　　　　　　　　　　　　　　　　　　　　 
+      <BR>您现在所处的位置//<A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/index.htm">首页</A>/<A 
+      href="http://www.yizhong.xm.fj.cn/student/as/shijl/sf/sf0.htm">算法园地</A>/动态规划算法2 
+      of 2/<BR>　 </FONT></DIV></TD></TR></TBODY></TABLE>
+<TABLE class=9p width="85%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=font9p height=2><FONT color=#ff0000>五、动态规划之二</FONT> </TD></TR>
+  <TR>
+    <TD class=font9p height=2>3-2 
+      给定一个正整数序列a1,a2,a3,……,an不改变序列中每个在序列中的位置，把它们相加，并括号记每次加法所得的和，称为中间和。问如何加括号可以使所有的中间和相加为最少。<BR>主程序：<BR><FONT 
+      color=#0000ff><BR>本程序用类Pascal编写，不能直接在Turbo Pascal中运行<BR><BR>procedure 
+      max(p)<BR>　begin&nbsp;<BR>　　n:=length[p]-1;<BR>　　for i:=1 to n do 
+      m[i,i]:=0;<BR>　　　for l:=2 to n do<BR>　　　　for i:=1 to n-l+1 
+      do<BR>　　　　　begin<BR>　　　　　　j:=i+l-1;<BR>　　　　　　m[i,j]:=无穷大；<BR>　　　　　　for 
+      k:=i to j-1 
+      do<BR>　　　　　　　begin<BR>　　　　　　　　q:=m[i,k]+m[k+1,j]+p2+p3+……+pj;<BR>　　　　　　　　if 
+      q&lt;m[i,j] then<BR>　　　　　　　　begin 
+      n[i,j]:=q;<BR>　　　　　　　　　s[i,j]:=k;<BR>　　　　　　　　end;<BR>　　　　　　　end;<BR>　　　　　end;<BR>　end.</FONT> 
+    </TD></TR>
+  <TR>
+    <TD class=font9p height=2>3-3 
+      最长公共子序列问题：给定两个序列x=&lt;x1,x2,x3,……,xn&gt;和y=&lt;y1,y2,……,ym&gt;,要求找出x和y 
+      的一个最长公共子序列。<BR><FONT 
+      color=#008000>方法：<BR>搜索法：对x的每一个子序列，检查它是否也是y的子序列。<BR>回溯法：<BR>1、当x[m]=y[n]时，找出x[m-1]和y[n-1]的最长子序列，在尾部加上x[m](y[n]),即可。<BR>2、当x[m]≠y[n]时，找出<BR>x[m-1]和y的最长公共子序列<BR>x和y[n-1]的最长公共子序列。<BR>0, 
+      当i=0或j=0<BR>C[i,j]= c[i-1,j-1]+1, 
+      当i,j&gt;0，且xi=xj<BR>Max(c[i,j-1],c[i-1,j]) 
+      i,j&gt;0且xi≠xj<BR>由此易写出一个计算c[i,j]的递归算法，计算时间呈指数增长。<BR>动态规划法： 
+      自底向上地计算出最优值的提高算法的效率<BR>x=&lt;x1,x2,……,xm&gt; y=&lt;y1,y2, 
+      ……,yn&gt;<BR>c[0..m,0..n]=&gt;c[i,j] ： 
+      存储xi与yj的最长公共子序列的长度；<BR>b[1..m,1..n]=&gt;b[i,j] 
+      ：记录指示c[i,j]的值是由哪一个子问题的解达到的，用于构造最长公共子序列。<BR><BR></FONT><FONT 
+      color=#0000ff>本程序用类Pascal编写，不能直接在Turbo Pascal中运行<BR></FONT><FONT 
+      color=#008000><BR></FONT><FONT color=#0000ff>procedure 
+      lcs-length(x,y)<BR>　begin&nbsp;<BR>　　m:=length[x];<BR>　　n:=length[y];<BR>　　for 
+      i:= 1 to m do c[i,0]:=0;<BR>　　　for j:=1 to n do c[0,j]:=0;<BR>　　　　for i:=1 
+      to m do&nbsp;<BR>　　　　　for j:=1 to n do&nbsp;<BR>　　　　　　if x[i]=y[j] then 
+      begin 
+      c[i,j]:=c[i-1,j-1]+1<BR>　　　　　　　　　　　　　　　　　　b[i,j]:=左上<BR>　　　　　　　　　　　　　　　end<BR>　　　　　　else 
+      if c[i-1,j]&gt;=c[i,j-1] then<BR>　　　　　　　　　begin 
+      c[i,j]:=c[i-1,j];<BR>　　　　　　　　　　b[i,j]:=向上；<BR>　　　　　　　　　end<BR>　　　　　　　　else&nbsp;<BR>　　　　　　　　　begin 
+      c[i,j]:=c[i,j-1];<BR>　　　　　　　　　　b[i,j]:=左<BR>　　　　　　　　　end;<BR>　　return(c,b)<BR>　end;</FONT> 
+    </TD></TR></TBODY></TABLE></DIV>
+<DIV align=center></DIV></BODY></HTML>

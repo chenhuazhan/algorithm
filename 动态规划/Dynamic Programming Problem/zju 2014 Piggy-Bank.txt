@@ -1,0 +1,24 @@
+zju 2014 Piggy-Bank
+
+ACM要进行比赛，经费的就是将平时的小零钱投入Piggy-Bank。
+但它不打破的话就不知道里面有多少钱。但根据每种钱币的重
+量及当前Piggy-Bank的重量可以大致估计出最小有多少钱。
+你的任务就是根据给定的数据来求出Piggy-Bank中最小有多少钱。
+Sample Input
+3   [3个测试数据]
+10 110   [10为空Piggy-Bank的重量，110为当前的重量,重量在10000以内]
+2        [有两种币值,币值在50以内]
+1 1      [币值为1分的重量为1克]
+30 50    [币值为30分(币值在50000以内）的重量为50克（重量在10000以内),]
+10 110   [第二个测试数据]
+2
+1 1
+50 30
+1 6
+2
+10 3
+20 4
+Sample Output
+The minimum amount of money in the piggy-bank is 60.
+The minimum amount of money in the piggy-bank is 100.
+This is impossible.

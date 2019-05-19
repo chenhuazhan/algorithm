@@ -1,0 +1,600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0052)http://blog.csdn.net/sharpdew/article/details/763180 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/get_uid.json"></script>
+    <title>动态规划算法剖析 - 搜索如风
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="最优化原理   1951年美国数学家R．Bellman等人，根据一类多阶段问题的特点，把多阶段决策问题变换为一系列互相联系的单阶段问题，然后逐个加以解决。一些静态模型，只要人为地引进“时间”因素，分成时段，就可以转化成多阶段的动态模型，用动态规划方法去处理。与此同时，他提出了解决这类问题的“最优化原理”(Principle of optimality)：    “一个过程的最优决策具有这样的性质：">
+    <script type="text/javascript" async="" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/ga.js"></script><script src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/ad.js"></script>
+    <link rel="Stylesheet" type="text/css" href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/sharpdew/rss/list">
+    <link rel="shortcut icon" href="http://blog.csdn.net/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/default.css">
+
+<script type="text/javascript" charset="utf-8" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/tracking.js"></script><script type="text/javascript" charset="utf-8" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/main.js"></script><link href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><script src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/logger.js"></script></head><style type="text/css" id="__360se6_success_css"></style>
+<body><iframe style="display: none; " frameborder="0"></iframe><div id="bdshare_s" style="display: block; "><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0"></iframe><div id="bdshare_l" style="display: none; "><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_mshare mshare">一键分享</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_baidu bdsc">百度搜藏</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_renren rrw">人人网</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_douban db">豆瓣网</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_sqq sqq">QQ好友</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_thx thx">和讯微博</a></li><li><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="bds_more">更多...</a></li></ul><p><a href="http://blog.csdn.net/sharpdew/article/details/763180#" class="goWebsite">百度分享</a></p></div></div></div>
+    <script src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/pub_topnav_2011.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/navtop_2012.css">
+<div class="nav_top_2011">
+<p><span style="color:red;">您还未登录！</span>|<a href="https://passport.csdn.net/account/login" target="_top">登录</a>|<a href="https://passport.csdn.net/account/register" target="_top">注册</a>|<a href="https://passport.csdn.net/help/faq" target="_blank">帮助</a></p><ul>
+<li><a href="http://www.csdn.net/" target="_blank" style="color: red;">首页</a></li>
+<li><a href="http://news.csdn.net/" target="_blank">业界</a></li>
+<li><a href="http://mobile.csdn.net/" target="_blank">移动</a></li>
+<li><a href="http://cloud.csdn.net/" target="_blank">云计算</a></li>
+<li><a href="http://sd.csdn.net/" target="_blank">研发</a></li>
+<li><a href="http://bbs.csdn.net/" target="_blank">论坛</a></li>
+<li><a href="http://blog.csdn.net/" target="_blank">博客</a></li>
+<li><a href="http://download.csdn.net/" target="_blank">下载</a></li>
+<li class="more"><h2 id="topnav_btnmore" onclick="showNavMore(this)"><a href="javascript:void(0);">更多</a></h2>
+<div id="topnav_hidlist">
+<iframe name="nav_frm" src="about:blank" width="92" height="178" scrolling="no" frameborder="no"></iframe>
+</div>
+</li>
+</ul>
+</div>
+
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1>
+                <a href="http://blog.csdn.net/sharpdew">搜索如风</a></h1>
+            <h2>期待一种令人叹为观止的智能搜索技术，搜你所想</h2>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+                <li id="btnContents"><a href="http://blog.csdn.net/sharpdew?viewmode=contents"><span>
+                    <img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/sharpdew?viewmode=list"><span>
+                    <img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/sharpdew/rss/list"><span>
+                    <img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "sharpdew";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/sharpdew";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://www.csdn.net/article/2013-11-05/2817398" target="_blank">
+<font color="blue">亲，“社区之星”已经一周岁了！ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/youxin2012/article/details/12872805" target="_blank"><font color="red">WebApp实时开源框架Clouda---认识心得
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/12423189" target="_blank">
+<font color="blue">Tag功能介绍—我们为什么打Tag 
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://newsletter.csdn.net/show_book/show_book_list?type=5" target="_blank">
+<font color="red">订阅CSDN社区周刊，及时了解社区精华内容
+ </font></a>
+
+</div>                    <link href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET.htm">
+        动态规划算法剖析
+        </a></span>
+    </h3>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="http://blog.csdn.net/sharpdew/article/category/139332">算法设计</a> 
+        </span>
+    <span class="link_postdate">2006-05-30 13:07</span>
+    <span class="link_view" title="阅读次数">28377人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="http://blog.csdn.net/sharpdew/article/details/763180#comments">评论</a>(13)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;动态规划算法剖析&#39;,&#39;763180&#39;);return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="http://blog.csdn.net/sharpdew/article/details/763180#report" onclick="javascript:report(763180,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://www.csdn.net/tag/%e7%ae%97%e6%b3%95" target="_blank">算法</a><a href="http://www.csdn.net/tag/%e4%bc%98%e5%8c%96" target="_blank">优化</a><a href="http://www.csdn.net/tag/c" target="_blank">c</a><a href="http://www.csdn.net/tag/build" target="_blank">build</a><a href="http://www.csdn.net/tag/%e6%b4%bb%e5%8a%a8" target="_blank">活动</a><a href="http://www.csdn.net/tag/%e5%ad%98%e5%82%a8" target="_blank">存储</a></div>
+
+    
+<div id="article_content" class="article_content">
+<p style="font-family: Courier New;"><strong>最优化原理<br></strong>&nbsp;&nbsp; 1951年美国数学家R．Bellman等人，根据一类多阶段问题的特点，把多阶段决策问题变换为一系列互相联系的单阶段问题，然后逐个加以解决。一些静态模型，只要人为地引进“时间”因素，分成时段，就可以转化成多阶段的动态模型，用动态规划方法去处理。与此同时，他提出了解决这类问题的“最优化原理”(Principle&nbsp;of&nbsp;optimality)：<br>&nbsp;&nbsp;&nbsp;&nbsp;“一个过程的最优决策具有这样的性质：即无论其初始状态和初始决策如何，其今后诸策略对以第一个决策所形成的状态作为初始状态的过程而言，必须构成最优策略”。简言之，一个最优策略的子策略，对于它的初态和终态而言也必是最优的。<br>&nbsp;&nbsp;&nbsp;&nbsp;这个“最优化原理”如果用数学化一点的语言来描述的话，就是：假设为了解决某一优化问题，需要依次作出n个决策D<sub>1</sub>，D<sub>2</sub>，…，D<sub>n</sub>，如若这个决策序列是最优的，对于任何一个整数k，1 &lt; k &lt; n，不论前面k个决策是怎样的，以后的最优决策只取决于由前面决策所确定的当前状态，即以后的决策D<sub>k+1</sub>，D<sub>k+2</sub>，…，D<sub>n</sub>也是最优的。<br>&nbsp;&nbsp;&nbsp;&nbsp;最优化原理是动态规划的基础。任何一个问题，如果失去了这个最优化原理的支持，就不可能用动态规划方法计算。能采用动态规划求解的问题都需要满足一定的条件：&nbsp;<br>&nbsp;&nbsp;&nbsp; (1) <u>问题中的状态必须满足最优化原理</u>；<br>&nbsp;&nbsp;&nbsp;&nbsp;(2) <u>问题中的状态必须满足无后效性</u>。<br>&nbsp;&nbsp;&nbsp;&nbsp;所谓的无后效性是指：“下一时刻的状态只与当前状态有关，而和当前状态之前的状态无关，当前的状态是对以往决策的总结”。 </p>
+<p style="font-family: Courier New;"><strong>问题求解模式</strong>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;动态规划所处理的问题是一个多阶段决策问题，一般由初始状态开始，通过对中间阶段决策的选择，达到结束状态。这些决策形成了一个决策序列，同时确定了完成整个过程的一条活动路线(通常是求最优的活动路线)。如图所示。动态规划的设计都有着一定的模式，一般要经历以下几个步骤。<br><br>&nbsp;&nbsp; 初始状态→│决策１│→│决策２│→…→│决策ｎ│→结束状态<br>&nbsp;&nbsp;&nbsp;&nbsp; 图1 动态规划决策过程示意图<br><br>&nbsp;&nbsp;&nbsp;&nbsp;(1)划分阶段：按照问题的时间或空间特征，把问题分为若干个阶段。在划分阶段时，注意划分后的阶段一定要是有序的或者是可排序的，否则问题就无法求解。<br>&nbsp;&nbsp;&nbsp;&nbsp;(2)确定状态和状态变量：将问题发展到各个阶段时所处于的各种客观情况用不同的状态表示出来。当然，状态的选择要满足无后效性。<br>&nbsp;&nbsp;&nbsp;&nbsp;(3)确定决策并写出状态转移方程：因为决策和状态转移有着天然的联系，状态转移就是根据上一阶段的状态和决策来导出本阶段的状态。所以如果确定了决策，状态转移方程也就可写出。但事实上常常是反过来做，根据相邻两段各状态之间的关系来确定决策。<br>&nbsp;&nbsp;&nbsp;&nbsp;(4)寻找边界条件：给出的状态转移方程是一个递推式，需要一个递推的终止条件或边界条件。</p>
+<p style="font-family: Courier New;"><strong>算法实现<br></strong>&nbsp;&nbsp;&nbsp; 动态规划的主要难点在于理论上的设计，也就是上面4个步骤的确定，一旦设计完成，实现部分就会非常简单。使用动态规划求解问题，最重要的就是确定动态规划三要素：问题的<strong>阶段</strong>,每个阶段的<strong>状态</strong>以及从前一个阶段转化到后一个阶段之间的<strong>递推关系</strong>。递推关系必须是从次小的问题开始到较大的问题之间的转化，从这个角度来说，动态规划往往可以用递归程序来实现，不过因为递推可以充分利用前面保存的子问题的解来减少重复计算，所以对于大规模问题来说，有递归不可比拟的优势，这也是动态规划算法的核心之处。确定了动态规划的这三要素，整个求解过程就可以用一个<u><strong>最优决策表</strong></u>来描述，最优决策表是一个二维表，其中行表示决策的阶段，列表示问题状态，表格需要填写的数据一般对应此问题的在某个阶段某个状态下的最优值（如最短路径，最长公共子序列，最大价值等），填表的过程就是根据递推关系，从1行1列开始，以行或者列优先的顺序，依次填写表格，最后根据整个表格的数据通过简单的取舍或者运算求得问题的最优解。下面分别以求解最大化投资回报问题和最长公共子序列问题为例阐述用动态规划算法求解问题的一般思路。<br><br><em>1. 最大化投资回报问题：某人有一定的资金用来购买不同面额的债卷，不同面额债卷的年收益是不同的，求给定资金，年限以及债卷面额、收益的情况下怎样购买才能使此人获得最大投资回报。</em><br>&nbsp;&nbsp;&nbsp; 程序输入约定：第一行第一列表示资金（1000的倍数）总量，第二列表示投资年限；第二行表示债卷面额总数；从第三行开始每行表示一种债卷，占用两列，前一列表示债卷面额，后一列表示其年收益，如下输入实例，<br>10000 1<br>2<br>4000 400<br>3000 250<br>程序实现如下，注释几乎说明了一切，所以不再另外分析。<br>/// 此数组是算法的关键存储结构，用来存储不同阶段各种债卷<br>/// 组合下对应可获取的最大利息。<br>int saifa[80005]; </p>
+<p style="font-family: Courier New;">/// 此函数用于计算当前债卷在不同购买额下的最优利息情况，<br>/// 注意此时的利息情况是基于上一次债卷的情况下计算得到的，<br>/// 也就是说当前利息最优是基于上一次利息最优的基础上计算出来的，<br>/// 这也正好体现了动态规划中“最优化原则”：不管前面的策略如何，<br>/// 此后的决策必须是基于当前状态（由上一次决策产生）的最优决策。<br>/*<br>&nbsp;&nbsp;&nbsp; 动态规划的求解过程一般都可以用一个最优决策表来描述，<br>&nbsp;&nbsp;&nbsp; 对于本程序，以示例输入为例，对于第一年，其最优决策表如下：<br>&nbsp;&nbsp;&nbsp; 0&nbsp;1&nbsp;2&nbsp;3&nbsp;&nbsp; 4&nbsp;&nbsp; 5&nbsp;&nbsp; 6&nbsp;&nbsp; 7&nbsp;&nbsp; 8&nbsp;&nbsp; 9&nbsp;&nbsp; 10(*1000)&nbsp;&nbsp;-- (1)<br>&nbsp;&nbsp;&nbsp; 0&nbsp;0&nbsp;0&nbsp;0&nbsp;&nbsp; 400 400 400 400 800 800 800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- (2)<br>&nbsp;&nbsp;&nbsp; 0&nbsp;0&nbsp;0&nbsp;250 400 400 500 650 800 900 900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- (3)<br>&nbsp;&nbsp;&nbsp; (1) -- 表示首先选利息为400的债卷在对应资金下的最优利息。<br>&nbsp;&nbsp;&nbsp; (2) -- 表示可用来购买债卷的资金。<br>&nbsp;&nbsp;&nbsp; (3) -- 表示在已有状态下再选择利息为300的债卷在对应资金下的最优利息。<br>&nbsp;&nbsp;&nbsp; 注意上面表格，在求购买利息为300的债卷获得的最优收益的时候，<br>&nbsp;&nbsp;&nbsp; 参考了以前的最优状态，以3行8列的650为例，7(*1000)可以<br>&nbsp;&nbsp;&nbsp; 在以前购买了0张4000的债卷的基础上再2张3000的，也可以在以前购<br>&nbsp;&nbsp;&nbsp; 买了1张4000的基础上再买1张3000，经比较取其收益大的，这就是典<br>&nbsp;&nbsp;&nbsp; 型的动态规划中的当前最优状态计算。<br>&nbsp;&nbsp;&nbsp; 本程序中把上面的最优决策二维表用一个一维数组表示，值得借鉴。&nbsp;<br>*/<br>void add(int a,int b)<br>{ cout &lt;&lt; a &lt;&lt; " " &lt;&lt; b &lt;&lt; endl; // for debug<br>&nbsp;for(int i=0;i&lt;=80000;i++)<br>&nbsp;{<br>&nbsp;&nbsp;if(i+a &gt; 80000)<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;}</p>
+<p style="font-family: Courier New;">&nbsp;&nbsp;if(saifa[i]+b &gt; saifa[i+a]) // 累计同时购买多种债卷时的利息<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;saifa[i+a] = saifa[i] + b;<br>&nbsp;&nbsp;}</p>
+<p style="font-family: Courier New;">&nbsp;&nbsp;if(i&lt;200) // for debug<br>&nbsp;&nbsp;&nbsp;cout &lt;&lt; i &lt;&lt; "-" &lt;&lt; saifa[i] &lt;&lt; " ";<br>&nbsp;}<br>&nbsp;cout &lt;&lt; endl; // for debug<br>}</p>
+<p style="font-family: Courier New;">int main(void)<br>{<br>&nbsp;int n,d,money,year,pay,bond;<br>&nbsp;int ii,i;</p>
+<p style="font-family: Courier New;">&nbsp;scanf("%d",&amp;n);<br>&nbsp;for(ii=0;ii&lt;n;ii++)<br>&nbsp;{<br>&nbsp;&nbsp;memset(saifa,0,sizeof(saifa));<br>&nbsp;&nbsp;scanf("%d%d",&amp;money,&amp;year);<br>&nbsp;&nbsp;scanf("%d",&amp;d);</p>
+<p style="font-family: Courier New;">&nbsp;&nbsp;for(i=0;i&lt;d;i++)<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;scanf("%d%d",&amp;pay,&amp;bond);<br>&nbsp;&nbsp;&nbsp;add(pay/1000,bond);<br>&nbsp;&nbsp;}</p>
+<p style="font-family: Courier New;">&nbsp;&nbsp;// 计算指定年限内最优组合的本金利息总额<br>&nbsp;&nbsp;for(i=0;i&lt;year;i++)<br>&nbsp;&nbsp;{ cout &lt;&lt; saifa[money/1000] &lt;&lt; " "; // for debug<br>&nbsp;&nbsp;&nbsp;money += saifa[money/1000]; <br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;cout &lt;&lt; endl; // for debug</p>
+<p style="font-family: Courier New;">&nbsp;&nbsp;printf("%d/n",money);<br>&nbsp;}</p>
+<p style="font-family: Courier New;">&nbsp;return 0;<br>}<br>上述程序实现方法同样适合于背包问题，最优库存问题等，只是针对具体情况，最优决策表的表示和生成会有所不同。</p>
+<p style="font-family: Courier New;"><em>2. 最长公共子串问题：一个给定序列的子序列是在该序列中删去若干元素后得到的序列。给定两个序列X和Y，当另一序列Z既</em><em>是X的子序列又是Y的子序列时，称Z是序列X和Y的公共子序列。最长公共子串就是求给定两个序列的</em><em>一个最长公共子序列。</em><span style="font-style: italic;" class="zhengwen"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody">例如，X=“ABCBDAB”，Y=“BCDB”是X的一个子序列。</span></span></span></span></span></span><br>问题分析：<br><span class="zhengwen"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody">&nbsp;&nbsp;&nbsp; 给定两个序列A和B，称序列Z是A和B的公共子序列，是指Z同是A和B的子序列。问题要求已知两序列A和B的最长公共子序列。如采用列举A的所有子序列，并一一检查其是否又是B的子序列，并随时记录所发现的子序列，最终求出最长公共子序列。这种方法因耗时太多而不可取。<br></span></span></span></span></span></span><span class="zhengwen"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody">&nbsp;&nbsp;&nbsp; 考虑最长公共子序列问题如何分解成子问题，设A=“a0，a1，…，am-1”，B=“b0，b1，…，bm-1”，并Z=“z0，z1，…，zk-1”为它们的最长公共子序列。不难证明有以下性质： <br>（1） 如果am-1=bn-1，则zk-1=am-1=bn-1，且“z0，z1，…，zk-2”是“a0，a1，…，am-2”和“b0，b1，…，bn-2”的一个最长公共子序列； <br>（2） 如果am-1!=bn-1，则若zk-1!=am-1，蕴涵“z0，z1，…，zk-1”是“a0，a1，…，am-2”和“b0，b1，…，bn-1”的一个最长公共子序列； <br>（3） 如果am-1!=bn-1，则若zk-1!=bn-1，蕴涵“z0，z1，…，zk-1”是“a0，a1，…，am-1”和“b0，b1，…，bn-2”的一个最长公共子序列。 <br>这样，在找A和B的公共子序列时，如有am-1=bn-1，则进一步解决一个子问题，找“a0，a1，…，am-2”和“b0，b1，…，bm-2”的一个 最长公共子序列；如果am-1!=bn-1，则要解决两个子问题，找出“a0，a1，…，am-2”和“b0，b1，…，bn-1”的一个最长公共子序列 和找出“a0，a1，…，am-1”和“b0，b1，…，bn-2”的一个最长公共子序列，再取两者中较长者作为A和B的最长公共子序列。<br>&nbsp;&nbsp;&nbsp; 为了节约重复求相同子问题的时间，引入一个数组，不管它们是否对最终解有用，把所有子问题的解存于该数组中，这就是动态规划法所采用的基本方法，具体说明如下。</span></span></span></span></span></span><span class="zhengwen"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody"><span class="postbody"> <br>定义c[i][j]为序列“a0，a1，…，ai-2”和“b0，b1，…，bj-1”的最长公共子序列的长度，计算c[i][j]可递归地表述如下： <br>（1）c[i][j] = 0 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果i=0或j=0； <br>（2）c[i][j] = c[i-1][j-1]+1&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 如果i,j&gt;0，且a[i-1] = b[j-1]； <br>（3）c[i][j] = max{c[i][j-1], c[i-1][j]} 如果i,j&gt;0，且a[i-1] != b[j-1]。 <br>按此算式可写出计算两个序列的最长公共子序列的长度函数。由于c[i][j]的产生仅依赖于c[i-1][j-1]、c[i-1][j]和c[i][j-1]，故可以从c[m][n]开始，跟踪c[i][j]的产生过程，逆向构造出最长公共子序列。细节见程序。 <br></span></span></span></span></span></span></p>
+<span style="font-family: Courier New;">#include &lt;stdio.h&gt;</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">#include &lt;string.h&gt;</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">#define N 100</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">char a[N], b[N], str[N];</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">int c[N][N];</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">int lcs_len(char* a, char* b, int c[][N])</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">{</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; int m = strlen(a), n = strlen(b), i, j;</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; for( i=0; i&lt;=m; i++ )&nbsp;&nbsp;&nbsp;&nbsp; </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; c[i][0]=0;</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; for( i=0; i&lt;=n; i++ )&nbsp;&nbsp;&nbsp;&nbsp; </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; c[0][i]=0;</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; for( i=1; i&lt;=m; i++ )&nbsp; </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; {</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; for( j=1; j&lt;=n; j++ )</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if (a[i-1]==b[j-1])</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; c[i][j]=c[i-1][j-1]+1;</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; else if (c[i-1][j]&gt;=c[i][j-1])</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; c[i][j]=c[i-1][j];</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; else</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; c[i][j]=c[i][j-1];</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; }</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; return c[m][n];</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">}</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">char* build_lcs(char s[], char* a, char* b)</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">{</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; int i = strlen(a), j = strlen(b);</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; int k = lcs_len(a,b,c);</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; s[k] = '/0';</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; while( k&gt;0 )</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; {</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if (c[i][j]==c[i-1][j])&nbsp; </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; i--;</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; else if (c[i][j]==c[i][j-1])&nbsp; </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; j--;</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; else</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; { </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; s[--k]=a[i-1];</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; i--; j--;</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; }</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; return s;</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">}</span><br style="font-family: Courier New;"><br style="font-family: Courier New;"><span style="font-family: Courier New;">void main()</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">{&nbsp; </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; printf("Enter two string (length &lt; %d) :/n",N);</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; scanf("%s%s",a,b);</span><br style="font-family: Courier New;"><span style="font-family: Courier New;">&nbsp;&nbsp;&nbsp; printf("LCS=%s/n",build_lcs(str,a,b)); </span><br style="font-family: Courier New;"><span style="font-family: Courier New;">}</span><br style="font-family: Courier New;"><br>
+<p style="font-family: Courier New;"><em>Copyright@戴维 2006.5&nbsp;&nbsp;于北京</em>&nbsp;</p>
+</div>
+
+
+
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float: right;">
+<a class="bds_qzone" title="分享到QQ空间" href="http://blog.csdn.net/sharpdew/article/details/763180#"></a>
+<a class="bds_tsina" title="分享到新浪微博" href="http://blog.csdn.net/sharpdew/article/details/763180#"></a>
+<a class="bds_tqq" title="分享到腾讯微博" href="http://blog.csdn.net/sharpdew/article/details/763180#"></a>
+<a class="bds_renren" title="分享到人人网" href="http://blog.csdn.net/sharpdew/article/details/763180#"></a>
+<a class="bds_t163" title="分享到网易微博" href="http://blog.csdn.net/sharpdew/article/details/763180#"></a>
+<span class="bds_more">更多</span>
+<a class="shareCount" href="http://blog.csdn.net/sharpdew/article/details/763180#" title="累计分享0次">0</a>
+</div>
+<!-- Baidu Button END -->
+
+
+<!--192.168.100.33-->
+<div class="article_next_prev">
+            <li class="prev_article"><span>上一篇：</span><a href="http://blog.csdn.net/sharpdew/article/details/755074">排列组合问题的通用算法</a></li>
+            <li class="next_article"><span>下一篇：</span><a href="http://blog.csdn.net/sharpdew/article/details/772504">C/C++中的内存对齐</a></li>
+</div>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+</div>
+    <div id="ad_cen">
+        <script type="text/javascript">            BAIDU_CLB_SLOT_ID = "117306";</script>
+        <script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/o.js"></script>
+    </div>
+    <script type="text/javascript">
+        //new Ad(4, 'ad_cen');
+    </script>
+<div id="comment_title" class="panel_head">
+    查看评论<a name="comments"></a></div>
+<div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_2594618"><dt class="comment_head" floor="13">13楼 <span class="user"><a class="username" href="http://blog.csdn.net/l85263670" target="_blank">weakleen</a> <span class="ptime">2013-04-16 02:08发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2594618" username="l85263670"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/l85263670" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_l85263670.jpg" width="40" height="40"></a></dd><dd class="comment_body">看你的文字说明实在看不懂，还不如直接看代码</dd></dl><dl class="comment_item comment_topic" id="comment_item_2566609"><dt class="comment_head" floor="12">12楼 <span class="user"><a class="username" href="http://blog.csdn.net/duxingxia_007" target="_blank">duxingxia_007</a> <span class="ptime">2013-03-25 20:58发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2566609" username="duxingxia_007"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/duxingxia_007" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_duxingxia_007.jpg" width="40" height="40"></a></dd><dd class="comment_body">无后效性也可以理解为一阶马尔科夫性</dd></dl><dl class="comment_item comment_topic" id="comment_item_2033503"><dt class="comment_head" floor="11">11楼 <span class="user"><a class="username" href="http://blog.csdn.net/hust_unique" target="_blank">hust_unique</a> <span class="ptime">2011-11-29 00:43发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2033503" username="hust_unique"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/hust_unique" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_hust_unique.jpg" width="40" height="40"></a></dd><dd class="comment_body">c[i][j] = max{c[i][j-1], c[i-1][j]} 如果i,j&gt;0，且a[i-1] != b[j-1]<br><br>这里错了吧？应该是c[i][j]=0</dd></dl><dl class="comment_item comment_topic" id="comment_item_1675769"><dt class="comment_head" floor="10">10楼 <span class="user"><a class="username" href="http://blog.csdn.net/RockyBoy" target="_blank">RockyBoy</a> <span class="ptime">2011-05-19 18:38发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display: none; " commentid="1675769" username="RockyBoy"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/RockyBoy" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_rockyboy.jpg" width="40" height="40"></a></dd><dd class="comment_body">good[e01]</dd></dl><dl class="comment_item comment_topic" id="comment_item_1651868"><dt class="comment_head" floor="9">9楼 <span class="user"><a class="username" href="http://blog.csdn.net/viekie" target="_blank">viekie</a> <span class="ptime">2011-04-24 13:55发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1651868" username="viekie"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/viekie" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_viekie.jpg" width="40" height="40"></a></dd><dd class="comment_body">[e01]</dd></dl><dl class="comment_item comment_topic" id="comment_item_1414795"><dt class="comment_head" floor="8">8楼 <span class="user"><a class="username" href="http://blog.csdn.net/wode123qwe" target="_blank">wode123qwe</a> <span class="ptime">2010-06-11 19:21发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="" commentid="1414795" username="wode123qwe"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wode123qwe" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_wode123qwe.jpg" width="40" height="40"></a></dd><dd class="comment_body">[e01]</dd></dl><dl class="comment_item comment_topic" id="comment_item_1410894"><dt class="comment_head" floor="7">7楼 <span class="user"><a class="username" href="http://blog.csdn.net/Lee723" target="_blank">Lee723</a> <span class="ptime">2010-06-08 20:08发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1410894" username="Lee723"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/Lee723" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_lee723.jpg" width="40" height="40"></a></dd><dd class="comment_body">感谢了！很好。[e01]</dd></dl><dl class="comment_item comment_topic" id="comment_item_1361317"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/xinzaiyiqi" target="_blank">xinzaiyiqi</a> <span class="ptime">2010-04-28 17:01发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1361317" username="xinzaiyiqi"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xinzaiyiqi" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_xinzaiyiqi.jpg" width="40" height="40"></a></dd><dd class="comment_body">谢喽</dd></dl><dl class="comment_item comment_topic" id="comment_item_1327686"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/pointersky" target="_blank">pointersky</a> <span class="ptime">2010-04-01 23:19发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1327686" username="pointersky"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/pointersky" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_pointersky.jpg" width="40" height="40"></a></dd><dd class="comment_body">最大化投资回报问题中：<br>    (1) -- 表示首先选利息为400的债卷在对应资金下的最优利息。<br>    (2) -- 表示可用来购买债卷的资金。<br> <br>（1）和（2）的注释是不是反了？<br>[e01]</dd></dl><dl class="comment_item comment_topic" id="comment_item_794996"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/sharpdew" target="_blank">sharpdew</a> <span class="ptime">2008-04-22 13:26发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="794996" username="sharpdew"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sharpdew" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_sharpdew.jpg" width="40" height="40"></a></dd><dd class="comment_body">你再仔细看看题目吧！</dd></dl><dl class="comment_item comment_topic" id="comment_item_794827"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/grant999" target="_blank">grant999</a> <span class="ptime">2008-04-22 09:23发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="794827" username="grant999"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/grant999" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_grant999.jpg" width="40" height="40"></a></dd><dd class="comment_body">123456789abcdefghijklmn2131.dfdfdf<br>123456sdkk123456789abcddkfdfkd123456789abcde<br>LCS=123456789abcdfk23d<br>怎么会是这个结果？？？</dd></dl><dl class="comment_item comment_topic" id="comment_item_743984"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/sharpdew" target="_blank">sharpdew</a> <span class="ptime">2007-11-21 12:10发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="743984" username="sharpdew"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sharpdew" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_sharpdew.jpg" width="40" height="40"></a></dd><dd class="comment_body">Tks!</dd></dl><dl class="comment_item comment_topic" id="comment_item_742222"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/k13795263" target="_blank">k13795263</a> <span class="ptime">2007-11-15 15:29发表</span>  <a href="http://blog.csdn.net/sharpdew/article/details/763180#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="742222" username="k13795263"> <a href="http://blog.csdn.net/sharpdew/article/details/763180#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/sharpdew/article/details/763180#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/k13795263" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/3_k13795263.jpg" width="40" height="40"></a></dd><dd class="comment_body">有个地方有点问题：<br> <br>    for( i=1; i&amp;lt;=m; i++ ) <br>    {<br>        for( j=1; j&amp;lt;=m; j++ )<br>        {<br>应改为：<br>              <br>    for( i=1; i&amp;lt;=m; i++ ) <br>    {<br>        for( j=1; j&amp;lt;=n; j++ )<br>        {</dd></dl><div class="clear"></div></div>
+<div id="comment_bar" style="display: none; ">
+</div>
+<div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:csdn.showLogin(function (dat) {js_logined(dat.data.userName);});">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fsharpdew%2Farticle%2Fdetails%2F763180">[注册]</a></div></div>
+<div class="announce">
+    * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '763180';
+    var commentscount = 13;
+    var islock = false
+</script>
+<script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+<div id="d-top" style="">
+    <a id="d-top-a" href="http://blog.csdn.net/sharpdew/article/details/763180#" title="回到顶部">
+        <img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/top.png" alt="TOP"></a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        var d_top = $('#d-top');
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+        <a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">
+            全部主题</a> <a title="数据挖掘" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98" target="_blank" onclick="LogClickCount(this,336);">
+                数据挖掘</a> <a title="SOA" href="http://www.csdn.net/tag/soa" target="_blank" onclick="LogClickCount(this,336);">
+                    SOA</a> <a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">
+                        UML</a> <a title="开放平台" href="http://www.csdn.net/tag/%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0" target="_blank" onclick="LogClickCount(this,336);">
+                            开放平台</a> <a title="HTML5" href="http://www.csdn.net/tag/HTML5" target="_blank" onclick="LogClickCount(this,336);">
+                                HTML5</a> <a title="开源" href="http://www.csdn.net/tag/%E5%BC%80%E6%BA%90" target="_blank" onclick="LogClickCount(this,336);">
+                                    开源</a> <a title="移动开发" href="http://www.csdn.net/tag/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91" target="_blank" onclick="LogClickCount(this,336);">
+                                        移动开发</a> <a title="iOS" href="http://www.csdn.net/tag/iOS" target="_blank" onclick="LogClickCount(this,336);">
+                                            iOS</a> <a title="Android" href="http://www.csdn.net/tag/android" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+        <a title="移动游戏" href="http://www.csdn.net/tag/%E7%A7%BB%E5%8A%A8%E6%B8%B8%E6%88%8F" target="_blank" onclick="LogClickCount(this,336);">
+            移动游戏</a> <a title="Windows Phone" href="http://www.csdn.net/tag/Windows%20Phone" target="_blank" onclick="LogClickCount(this,336);">Windows Phone</a> <a title="JavaScript" href="http://www.csdn.net/tag/JavaScript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a> <a title="CSS" href="http://www.csdn.net/Tag/CSS" target="_blank" onclick="LogClickCount(this,336);">
+                        CSS</a> <a title="游戏引擎" href="http://www.csdn.net/tag/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E" target="_blank" onclick="LogClickCount(this,336);">
+                            游戏引擎</a> <a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">
+                                云计算</a> <a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">
+                                    大数据</a> <a title="Hadoop" href="http://www.csdn.net/tag/Hadoop" target="_blank" onclick="LogClickCount(this,336);">
+                                        Hadoop</a> <a title="OpenStack" href="http://www.csdn.net/tag/OpenStack" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+        <a title="云平台" href="http://www.csdn.net/tag/%E4%BA%91%E5%B9%B3%E5%8F%B0" target="_blank" onclick="LogClickCount(this,336);">
+            云平台</a> <a title="PHP" href="http://www.csdn.net/tag/PHP" target="_blank" onclick="LogClickCount(this,336);">
+                PHP</a> <a title="MongoDB" href="http://www.csdn.net/tag/MongoDB" target="_blank" onclick="LogClickCount(this,336);">MongoDB</a> <a title="JSON" href="http://www.csdn.net/tag/JSON" target="_blank" onclick="LogClickCount(this,336);">JSON</a> <a title="Xcode" href="http://www.csdn.net/tag/Xcode" target="_blank" onclick="LogClickCount(this,336);">Xcode</a>
+        <a title="Node.js" href="http://www.csdn.net/tag/Node.js" target="_blank" onclick="LogClickCount(this,336);">
+            Node.js</a> <a title="前端开发" href="http://www.csdn.net/tag/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91" target="_blank" onclick="LogClickCount(this,336);">
+                前端开发</a> <a title="神经网络" href="http://www.csdn.net/tag/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C" target="_blank" onclick="LogClickCount(this,336);">
+                    神经网络</a> <a title="安全" href="http://www.csdn.net/tag/%E5%AE%89%E5%85%A8" target="_blank" onclick="LogClickCount(this,336);">
+                        安全</a> <a title="Java" href="http://www.csdn.net/tag/Java" target="_blank" onclick="LogClickCount(this,336);">
+                            Java</a> <a title=".NET" href="http://www.csdn.net/tag/.NET" target="_blank" onclick="LogClickCount(this,336);">
+                                .NET</a> <a title="MySQL" href="http://www.csdn.net/tag/MySQL" target="_blank" onclick="LogClickCount(this,336);">
+                                    MySQL</a> <a title="textview" href="http://www.csdn.net/tag/textview" target="_blank" onclick="LogClickCount(this,336);">textview</a>
+        <a title="BigTable" href="http://www.csdn.net/tag/BigTable" target="_blank" onclick="LogClickCount(this,336);">
+            BigTable</a> <a title="web框架" href="http://www.csdn.net/tag/web%E6%A1%86%E6%9E%B6" target="_blank" onclick="LogClickCount(this,336);">web框架</a> <a title="SQL" href="http://www.csdn.net/tag/SQL" target="_blank" onclick="LogClickCount(this,336);">SQL</a> <a title="Redis" href="http://www.csdn.net/tag/Redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a> <a title="CouchDB" href="http://www.csdn.net/tag/CouchDB" target="_blank" onclick="LogClickCount(this,336);">CouchDB</a>
+        <a title="Linux" href="http://www.csdn.net/tag/Linux" target="_blank" onclick="LogClickCount(this,336);">
+            Linux</a> <a title="可穿戴计算" href="http://www.csdn.net/tag/%E5%8F%AF%E7%A9%BF%E6%88%B4%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">
+                可穿戴计算</a> <a title="NoSQL" href="http://www.csdn.net/tag/NoSQL" target="_blank" onclick="LogClickCount(this,336);">
+                    NoSQL</a> <a title="Ruby" href="http://www.csdn.net/tag/Ruby" target="_blank" onclick="LogClickCount(this,336);">
+                        Ruby</a> <a title="API" href="http://www.csdn.net/tag/API" target="_blank" onclick="LogClickCount(this,336);">
+                            API</a> <a title="GPL" href="http://www.csdn.net/tag/GPL" target="_blank" onclick="LogClickCount(this,336);">
+                                GPL</a> <a title="XAML" href="http://www.csdn.net/tag/XAML" target="_blank" onclick="LogClickCount(this,336);">
+                                    XAML</a> <a title="ASP.NET" href="http://www.csdn.net/tag/ASP.NET" target="_blank" onclick="LogClickCount(this,336);">ASP.NET</a> <a title="前端开发" href="http://www.csdn.net/tag/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91" target="_blank" onclick="LogClickCount(this,336);">前端开发</a>
+        <a title="虚拟化" href="http://www.csdn.net/tag/%E8%99%9A%E6%8B%9F%E5%8C%96" target="_blank" onclick="LogClickCount(this,336);">
+            虚拟化</a> <a title="框架" href="http://www.csdn.net/tag/%E6%A1%86%E6%9E%B6" target="_blank" onclick="LogClickCount(this,336);">
+                框架</a> <a title="机器学习" href="http://www.csdn.net/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" target="_blank" onclick="LogClickCount(this,336);">
+                    机器学习</a> <a title="数据中心" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83" target="_blank" onclick="LogClickCount(this,336);">
+                        数据中心</a> <a title="IE10" href="http://www.csdn.net/tag/IE10" target="_blank" onclick="LogClickCount(this,336);">
+                            IE10</a> <a title="敏捷" href="http://www.csdn.net/tag/%E6%95%8F%E6%8D%B7" target="_blank" onclick="LogClickCount(this,336);">
+                                敏捷</a> <a title="集群" href="http://www.csdn.net/tag/%E9%9B%86%E7%BE%A4" target="_blank" onclick="LogClickCount(this,336);">
+                                    集群</a>
+    </div>
+</div>
+
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/sharpdew" target="_blank">
+    <img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/1_sharpdew.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/sharpdew" class="user_name" target="_blank">sharpdew</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+<div id="bms_box"></div></div>
+<ul id="blog_rank">
+    <li>访问：<span>150981次</span></li>
+    <li>积分：<span>1495分</span></li>
+    <li>排名：<span>第7337名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>35篇</span></li>
+    <li>转载：<span>4篇</span></li>
+    <li>译文：<span>1篇</span></li>
+    <li>评论：<span>147条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/193069">C++ FAQ</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/196220">KSP</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/197966">他山之石</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/236957">多维拼音输入法</a><span>(5)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/211244">我的译作</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/138144">无限搜索</a><span>(5)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/177298">点滴如风</a><span>(10)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/139332">算法设计</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/197250">编程艺术</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/519097">藏品</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/category/255814">语言处理技术</a><span>(5)</span>
+</li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/sharpdew/article/month/2010/01">2010年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2009/12">2009年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2009/11">2009年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2009/03">2009年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2008/04">2008年04月</a><span>(1)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/sharpdew/article/month/2007/09">2007年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2007/06">2007年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2007/04">2007年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2007/01">2007年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/12">2006年12月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/11">2006年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/10">2006年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/06">2006年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/05">2006年05月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/04">2006年04月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/03">2006年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2006/02">2006年02月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2005/08">2005年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/sharpdew/article/month/2005/07">2005年07月</a><span>(3)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head"><span>阅读排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/755074" title="排列组合问题的通用算法">排列组合问题的通用算法</a><span>(39326)</span>
+</li>
+<li>
+<a href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET.htm" title="动态规划算法剖析">动态规划算法剖析</a><span>(28374)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/446510" title="前K条最短路径算法">前K条最短路径算法</a><span>(11937)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/620028" title="如此开源">如此开源</a><span>(11696)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/632535" title="我的中文句法分析器">我的中文句法分析器</a><span>(4608)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/669253" title="如何使用迭代器iterator循环删除容器中的元素？">如何使用迭代器iterator循环删除容器中的元素？</a><span>(4340)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/438250" title="Indri 动态文档索引技术">Indri 动态文档索引技术</a><span>(4276)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/438241" title="Indri 开源搜索引擎">Indri 开源搜索引擎</a><span>(2764)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/678299" title="关于N皇后问题高效试探回溯算法的分析">关于N皇后问题高效试探回溯算法的分析</a><span>(2557)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/751477" title="怎样将成员函数指针强制转换成void*指针？">怎样将成员函数指针强制转换成void*指针？</a><span>(2548)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/620028" title="如此开源">如此开源</a><span>(47)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/446510" title="前K条最短路径算法">前K条最短路径算法</a><span>(26)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/632535" title="我的中文句法分析器">我的中文句法分析器</a><span>(18)</span>
+</li>
+<li>
+<a href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET.htm" title="动态规划算法剖析">动态规划算法剖析</a><span>(13)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/755074" title="排列组合问题的通用算法">排列组合问题的通用算法</a><span>(12)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/678299" title="关于N皇后问题高效试探回溯算法的分析">关于N皇后问题高效试探回溯算法的分析</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/836899" title="感悟生活之－工作">感悟生活之－工作</a><span>(5)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/669253" title="如何使用迭代器iterator循环删除容器中的元素？">如何使用迭代器iterator循环删除容器中的元素？</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/439423" title="搜索引擎中几种语言模型的性能比较">搜索引擎中几种语言模型的性能比较</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/sharpdew/article/details/751477" title="怎样将成员函数指针强制转换成void*指针？">怎样将成员函数指针强制转换成void*指针？</a><span>(2)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/632535#comments">我的中文句法分析器</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/wshaha_" class="user_name">wshaha_</a>:
+我现在也正在做相关的东西，您说的句法分析的开源问题感同身受。希望能够从您这里获得一些帮助。我得邮箱是...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/632535#comments">我的中文句法分析器</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/liyimy" class="user_name">liyimy</a>:
+大神能发我一份吗？？？1214256518@qq.com
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/755074#comments">排列组合问题的通用算法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/afunx" class="user_name">afunx</a>:
+"m = m &gt; n ? n : m;"改成"if(m&gt;n) return 0"或许更好。
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/632535#comments">我的中文句法分析器</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/net3m33" class="user_name">net3m33</a>:
+1426875943@qq.com 请给我份，谢谢
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/632535#comments">我的中文句法分析器</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/daishuangfang" class="user_name">daishuangfang</a>:
+你好，想要你的句法分析源码，可以发给我一份吗? 非常感谢。我的邮箱是daishuangfang@to...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/755074#comments">排列组合问题的通用算法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/gailvlun2011" class="user_name">gailvlun2011</a>:
+楼主知识很渊博，从n个数中选m个数的选排列怎么解决。
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/446510#comments">前K条最短路径算法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/alex_yudongdong" class="user_name">alex_yudongdong</a>:
+您好，我准备做K则最短路径方面的研究，可是我有一篇论文始终找不到，就麻烦问你一下 你有没有 E. I...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/763180#comments">动态规划算法剖析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/l85263670" class="user_name">weakleen</a>:
+看你的文字说明实在看不懂，还不如直接看代码
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/763180#comments">动态规划算法剖析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/duxingxia_007" class="user_name">duxingxia_007</a>:
+无后效性也可以理解为一阶马尔科夫性
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/sharpdew/article/details/632535#comments">我的中文句法分析器</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/dipeng198923" class="user_name">dipeng198923</a>:
+你好，我们最近在做一个 文本倾向性分析 的研究，您的词法分析器对我们可能有非常的帮助，能否把您的词法...
+    </p>
+    </li>
+</ul>
+</div>
+<div id="custom_column_960580" class="panel">
+<ul class="panel_head"><span>编程艺术</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://davepy.spaces.live.com/" target="_blank">多维拼音输入法官方博客</a> (<a href="http://davepy.spaces.live.com/feed.rss" target="_blank">RSS</a>)</li><li><a href="http://davepy.sourceforge.net/" target="_blank">多维拼音输入法官方主页</a></li></ul>
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+<script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date() / 120000).toString(36) + '="></' + 'script>');
+</script><script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/pub_footer_2012.css"><div id="pub_footerall" class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a></dd><dd><a href="http://wpa.qq.com/msgrd?v=3&uin=2355263776&site=qq&menu=yes" target="_blank" class="qq">QQ客服</a> <a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a> <a href="http://bbs.csdn.net/forums/Service" target="_blank" class="online">论坛反馈</a> <a href="mailto:webmaster@csdn.net" class="email">联系邮箱：webmaster@csdn.net</a> <span class="phone">服务热线：400-600-2320</span></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>世纪乐知(北京)网络技术有限公司 提供技术支持</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd>Copyright © 1999-2012, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/notify.js"></script>
+    <script type="text/javascript" src="http://pass.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/ad-blog.js"></script>
+<script type="text/javascript" src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/count.js"></script><iframe src="./动态规划算法剖析 - 搜索如风 - 博客频道 - CSDN.NET_files/logs.htm" frameborder="0" width="0" height="0"></iframe>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+
+
+</body></html>

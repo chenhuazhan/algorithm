@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0039)http://noi.stinfo.net/jdjc/jdjc_dp1.htm -->
+<HTML><HEAD><TITLE>轮船问题点评</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312"><LINK 
+href="轮船问题点评.files/js_css.css" type=text/css rel=stylesheet>
+<META content="MSHTML 5.50.4134.100" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<TABLE cellSpacing=0 width="98%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#ea003a>
+      <DIV align=center><A 
+      href="http://noi.stinfo.net/index.htm">首页</A>&gt;&gt;<A 
+      href="http://noi.stinfo.net/jdjc/jdjc.htm">经典集粹</A>&gt;&gt;品题评题： <A 
+      href="http://noi.stinfo.net/jdjc/jdjc_dp2.htm">正方形的可见性</A> <A target=main 
+      href="http://noi.stinfo.net/jdjc/jdjc_dp1.htm"></A><A 
+      href="http://noi.stinfo.net/jdjc/jdjc_dp1.htm">层层深入分析问题</A> 
+  </DIV></TD></TR></TBODY></TABLE>
+<P>&nbsp;</P>
+<H3 align=center><FONT color=#ff0000>层层深入分析问题</FONT></H3>
+<P><B>题目描述</B> <BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+某国家被一条河划分为南北两部分，在南岸和北岸总共有N对城市，每一城市在对岸都有唯一的友好城市，任何两个城市都没有相同的友好城市。每一对友好城市都希望有一条航线来往，于是他们向政府提出了申请。由于河终年有雾。政府决定允许开通的航线就互不交叉（如果两条航线交叉，将有很大机会撞船）。 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;你的任务是编写一个程序来帮政府官员决定他们应拨款兴建哪些航线以使在安全条件下有最多航线可以被开通。 
+</P>
+<P><B>输入数据<BR>&nbsp;&nbsp;&nbsp;&nbsp; </B>输入文件（ship.in）包括了若干组数据，每组数据格式如下： 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+第一行两个由空格分隔的整数x，y，10〈=x〈=6000，10〈=y〈=100。x表示河的长度而y表示宽。第二行是一个整数N(1&lt;=N&lt;=5000)，表示分布在河两岸的城市对数。接下来的N行每行有两个由空格分隔的正数C，D（C、D〈=x），描述每一对友好城市沿着河岸与西边境线的距离，C表示北岸城市的距离而D表示南岸城市的距离。在河的同一边，任何两个城市的位置都是不同的。整个输入文件以由空格分隔的两个0结束。 
+</P>
+<P><B>输出数据<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+</B>输出文件(ship.ou)要在连续的若干行里给出每一组数据在安全条件下能够开通的最大航线数目。</P>
+<P><B>示例</B> <BR>Ship.in<BR>30 4<BR>7<BR>22 4<BR>2 6<BR>10 3<BR>15 12<BR>9 
+8<BR>17 17<BR>4 2<BR>0 0 <BR>Ship.out<BR>4 <BR></P>
+<P><B>问题分析</B> <BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+对这道题的最一般想法是进行回溯，但是回溯对于数据规模达到5000的情况是不可行的。<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+于是我们改变一下思路，将每对友好城市看成一条线段，则这道题的描述化为：有N条线段，问最少去掉多少条线，可以使剩下的线段互不交叉？<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+顺理成章，删掉的线应该是和其它线交叉最多的，其"交叉数"最大。所谓"交叉数"是指某线与其它线的交叉情况，初始值为0，若和其它线交叉则加1所得的值。按"交叉数"从大到小删除线，直到所有线都不交叉为止。此时，我们要解决的问题有：1、如何计算交叉数？2、怎么删线？<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+对第一个问题，以北岸为线的起点而南岸为线的终点；先将所有的线按照起点坐标值从小到大排序，按照每条线的终点坐标计算交叉数：求线I的交叉数J[I]，则检查所有1..I-1条线，若线J（ 
+1&lt; = J &lt; I ）的终点值大于线I的终点值，则线I与线J相交。J[I]与J[J]同时加1。整个搜索量最大为5000 X 5000。 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+对第二个问题，将J数组从大到小排序，每删除一条线，则将与之相交的线的J值减1，重复这个过程，直到所有J值都为0。此时剩下的线则全不交叉。 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;如上数据，则可得下面结果：<BR>
+<TABLE width="52%" border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV align=center>编号 </DIV></TD>
+    <TD>
+      <DIV align=center>南岸 </DIV></TD>
+    <TD>
+      <DIV align=center>北岸 </DIV></TD>
+    <TD>
+      <DIV align=center>交叉数</DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>1</DIV></TD>
+    <TD>
+      <DIV align=center>1</DIV></TD>
+    <TD>
+      <DIV align=center>3</DIV></TD>
+    <TD>
+      <DIV align=center>1</DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>2</DIV></TD>
+    <TD>
+      <DIV align=center>2</DIV></TD>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>2</DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>3</DIV></TD>
+    <TD>
+      <DIV align=center>3</DIV></TD>
+    <TD>
+      <DIV align=center>1</DIV></TD>
+    <TD>
+      <DIV align=center>2</DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>5</DIV></TD>
+    <TD>
+      <DIV align=center>1</DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>5</DIV></TD>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>2</DIV></TD>
+    <TD>
+      <DIV 
+align=center>2</DIV></TD></TR></TBODY></TABLE>&nbsp;&nbsp;&nbsp;&nbsp;此时，2、3、5航线的交叉数都一样，如果删去的是5、3线，则剩下的1、2、5线互不相交，最多航线数为3；但如果删去的是2、3，则还要删去第5线才符合要求，此时的最多航线数为2，不是最优解。 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+于是，我们从上面的分析中再深入，将航线按起点坐标排好序后，如上所述，在本题中，只要线J的起点小于线I的起点，同时它的终点也小于线I的终点，则线J和线I不相交。因此，求所有线中最多能有多少条线不相交，实际上是从终点坐标值数列中求一个最长不下降序列。这就把题目转化为一个非常典型的动态规划题目了。 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; 求最长不下降序列的规划方程如下：<BR>&nbsp;&nbsp;&nbsp;&nbsp; 
+L(Si)=max{L(Sj)}+1；1&lt; = j &lt; i且 Sj &lt; Si。 
+Si为航线的终点坐标值。<BR>&nbsp;&nbsp;&nbsp;&nbsp; 如上数据可以得下解：<BR>
+<TABLE width="52%" border=1>
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV align=center>编号 </DIV></TD>
+    <TD>
+      <DIV align=center>南岸 </DIV></TD>
+    <TD>
+      <DIV align=center>北岸 </DIV></TD>
+    <TD>
+      <DIV align=center>L值和前趋</DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>1</DIV></TD>
+    <TD>
+      <DIV align=center>1</DIV></TD>
+    <TD>
+      <DIV align=center>3</DIV></TD>
+    <TD>
+      <DIV align=center>1，0</DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>2</DIV></TD>
+    <TD>
+      <DIV align=center>2</DIV></TD>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>2，1 </DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>3</DIV></TD>
+    <TD>
+      <DIV align=center>3</DIV></TD>
+    <TD>
+      <DIV align=center>1</DIV></TD>
+    <TD>
+      <DIV align=center>1，0 </DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>5</DIV></TD>
+    <TD>
+      <DIV align=center>3，2 </DIV></TD></TR>
+  <TR>
+    <TD>
+      <DIV align=center>5</DIV></TD>
+    <TD>
+      <DIV align=center>4</DIV></TD>
+    <TD>
+      <DIV align=center>2</DIV></TD>
+    <TD>
+      <DIV align=center>2，3 </DIV></TD></TR></TBODY></TABLE>&nbsp;&nbsp;&nbsp;&nbsp; 
+<P>非常明显，可以得出解为3，航线为4，2，1。 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;从以上分析过程可以得出：当我们拿到一道题时，不要急于求解，而应先将题目的表面现象一层层象剥竹笋一样去掉，只留下最实质的内容。这时再来设计算法，往往能事半功倍。 
+</P>
+<TABLE cellSpacing=0 width="98%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD bgColor=#ea003a>
+      <DIV align=center><A 
+      href="http://noi.stinfo.net/index.htm">首页</A>&gt;&gt;<A 
+      href="http://noi.stinfo.net/jdjc/jdjc.htm">经典集粹</A>&gt;&gt;品题评题： <A 
+      href="http://noi.stinfo.net/jdjc/jdjc_dp2.htm">正方形的可见性</A> <A target=main 
+      href="http://noi.stinfo.net/jdjc/jdjc_dp1.htm"></A><A 
+      href="http://noi.stinfo.net/jdjc/jdjc_dp1.htm">层层深入分析问题</A> 
+  </DIV></TD></TR></TBODY></TABLE>
+<P><BR></P>
+<P> </P></BODY></HTML>

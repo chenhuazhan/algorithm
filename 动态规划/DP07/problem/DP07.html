@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>dd_engi的动态规划专项练习赛</title>
+<style type="text/css">
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center ; }
+
+h2.subtitle {
+  text-align: center ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+.section p {
+  margin: 1em 1em }
+
+.section h1 {
+  margin-top: 1em }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+table.docinfo {
+  margin-left: 4em }
+
+table.docutils {
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: right ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+</style>
+</head>
+<body>
+<div class="document" id="dd-engi">
+<h1 class="title">dd_engi的动态规划专项练习赛</h1>
+<h2 class="subtitle" id="id1">2007年11月9日</h2>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr class="field"><th class="docinfo-name">命题:</th><td class="field-body">Tianyi Cui (dd_engi)</td>
+</tr>
+<tr class="field"><th class="docinfo-name">审题:</th><td class="field-body">Moony Chou (zmy)</td>
+</tr>
+<tr class="field"><th class="docinfo-name">比赛日期:</th><td class="field-body">2007年11月9日 星期五</td>
+</tr>
+<tr class="field"><th class="docinfo-name">比赛时间:</th><td class="field-body">18:30 -- 21:40</td>
+</tr>
+<tr class="field"><th class="docinfo-name">提交邮箱:</th><td class="field-body"><div class="first last line-block">
+<div class="line"><a class="reference external" href="mailto:dp07submit&#64;gmail.com">dp07submit&#64;gmail.com</a></div>
+<div class="line"><a class="reference external" href="mailto:xxjs2000&#64;163.com">xxjs2000&#64;163.com</a></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="docinfo-name">比赛支持:</th><td class="field-body"><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://groups.google.com/group/infowire/browse_thread/thread/1fa0cc1cb5e21175">INFOWIRE</a></div>
+<div class="line"><a class="reference external" href="http://oibh.org/bbs/thread-17787-1-1.html">OIBH BBS</a></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id2">
+<h1>题目说明</h1>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="19%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>题目名称</td>
+<td>质数取石子</td>
+<td>多人背包</td>
+<td>不听话的机器人</td>
+<td>新魔法药水</td>
+</tr>
+<tr><td>源文件名</td>
+<td>game.c/cpp/pas</td>
+<td>bags.c/cpp/pas</td>
+<td>robot.c/cpp/pas</td>
+<td>magic.c/cpp/pas</td>
+</tr>
+<tr><td>输入文件名</td>
+<td>game.in</td>
+<td>bags.in</td>
+<td>robot.in</td>
+<td>magic.in</td>
+</tr>
+<tr><td>输出文件名</td>
+<td>game.out</td>
+<td>bags.out</td>
+<td>robot.out</td>
+<td>magic.out</td>
+</tr>
+<tr><td>每个测试点的时限</td>
+<td>2s</td>
+<td>2s</td>
+<td>2s</td>
+<td>2s</td>
+</tr>
+<tr><td>内存限制</td>
+<td>64M</td>
+<td>64M</td>
+<td>64M</td>
+<td>64M</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h1>质数取石子</h1>
+<div class="section" id="id4">
+<h2>题目描述</h2>
+<p>DD 和 MM 正在玩取石子游戏。他们的游戏规则是这样的：桌上有若干石子，DD 先取，轮流取，每次必须取质数个。如果某一时刻某一方无法从桌上的石子中取质数个，比如说剩下 0 个或 1 个石子，那么他/她就输了。</p>
+<p>DD 和 MM 都很聪明，不管哪方存在一个可以必胜的最优策略，他/她都会按照最优策略保证胜利。于是，DD 想知道，对于给定的桌面上的石子数，他究竟能不能取得胜利呢？</p>
+<p>当 DD 确定会取得胜利时，他会说：“不管 MM 选择怎样的取石子策略，我都能保证至多 X 步以后就能取得胜利。”那么，最小的满足要求的 X 是多少呢？注意，不管是 DD 取一次石子还是 MM 取一次石子都应该被计算为“一步”。</p>
+</div>
+<div class="section" id="id5">
+<h2>输入格式</h2>
+<p>第一行有一个整数 N，表示这个输入文件中包含 N 个测试数据。</p>
+<p>第二行开始，每行有一个测试数据，其中仅包含一个整数，表示桌面上的石子数。</p>
+</div>
+<div class="section" id="id6">
+<h2>输出格式</h2>
+<p>你需要对于每个输入文件中的 N 个测试数据输出相应的 N 行。</p>
+<p>如果对于该种情形是 DD 一定取得胜利，那么输出最小的 X。否则该行输出 -1。</p>
+</div>
+<div class="section" id="id7">
+<h2>样例输入</h2>
+<pre class="literal-block">
+3
+8
+9
+16
+</pre>
+</div>
+<div class="section" id="id8">
+<h2>样例输出</h2>
+<pre class="literal-block">
+1
+-1
+3
+</pre>
+</div>
+<div class="section" id="id9">
+<h2>样例说明</h2>
+<p>当桌上有 8 个石子时，先取的 DD 只需要取走 7 个石子剩下 1 个就可以在一步之后保证胜利，输出 1。</p>
+<p>当桌上有 9 个石子时。若 DD 取走 2 个，MM 会取走 7 个，剩下 0 个，DD 输。若 DD 取走 3 个，MM 会取走 5 个，剩下 1 个，DD 输。DD 取走 5 个或者 7 个的情况同理可知。所以当桌上有 9 个石子时，不管 DD 怎么取，MM 都可以让 DD 输，输出 -1。</p>
+<p>当桌上有 16 个石子时，DD 可以保证在 3 步以内取得胜利。可以证明，为了在 3 步内取得胜利，DD 第一步必须取 7 个石子。剩下 9 个石子之后，不管第二步 MM 怎么取，DD 取了第三步以后可以保证胜利，所以输出 3。</p>
+</div>
+<div class="section" id="id10">
+<h2>数据范围</h2>
+<p>输入文件中的数据数 N&lt;=10。</p>
+<p>每次桌上初始的石子数都不超过 20000。</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h1>多人背包</h1>
+<div class="section" id="id12">
+<h2>题目描述</h2>
+<p>DD 和好朋友们要去爬山啦！他们一共有 K 个人，每个人都会背一个包。这些包的容量是相同的，都是 V。可以装进背包里的一共有 N 种物品，每种物品都有给定的体积和价值。</p>
+<p>在 DD 看来，合理的背包安排方案是这样的：</p>
+<ol class="arabic simple">
+<li>每个人背包里装的物品的总体积恰等于包的容量。</li>
+<li>每个包里的每种物品最多只有一件，但两个不同的包中可以存在相同的物品。</li>
+<li>任意两个人，他们包里的物品清单不能完全相同。</li>
+</ol>
+<p>在满足以上要求的前提下，所有包里的所有物品的总价值最大是多少呢？</p>
+</div>
+<div class="section" id="id13">
+<h2>输入格式</h2>
+<p>第一行有三个整数：K、V、N。</p>
+<p>第二行开始的 N 行，每行有两个整数，分别代表这件物品的体积和价值。</p>
+</div>
+<div class="section" id="id14">
+<h2>输出格式</h2>
+<p>只需输出一个整数，即在满足以上要求的前提下所有物品的总价值的最大值。</p>
+</div>
+<div class="section" id="id15">
+<h2>样例输入</h2>
+<pre class="literal-block">
+2 10 5
+3 12
+7 20
+2 4
+5 6
+1 1
+</pre>
+</div>
+<div class="section" id="id16">
+<h2>样例输出</h2>
+<pre class="literal-block">
+57
+</pre>
+</div>
+<div class="section" id="id17">
+<h2>样例说明</h2>
+<p>一种可以得到最优解的方案是：第一个人背体积为 7、2、1 的三种物品，价值为 25。第二个人背体积为 3、7 的两种物品，价值为 32。总价值 57。</p>
+</div>
+<div class="section" id="id18">
+<h2>数据范围</h2>
+<p>总人数 K&lt;=50。</p>
+<p>每个背包的容量 V&lt;=5000。</p>
+<p>物品种类数 N&lt;=200。</p>
+<p>其它正整数都不超过 5000。</p>
+<p>输入数据保证存在满足要求的方案。</p>
+</div>
+</div>
+<div class="section" id="id19">
+<h1>不听话的机器人</h1>
+<div class="section" id="id20">
+<h2>题目描述</h2>
+<p>DD 有一个不太听话的机器人，这个机器人总是会有自己的想法，而不会完全遵守 DD 给它的指令。</p>
+<p>现在 DD 在试图命令机器人走迷宫。迷宫是一个 N*N 个格子组成的区域，格子自左上角到右下角从 (1,1) 到 (N,N) 编号。第 i 行、第 j 列的格子编号为 (i,j)。迷宫中的某些区域是障碍物，机器人不能移动到那里。</p>
+<p>DD 给了机器人 M 条指令，指令的类型包括“前进一步”“后退一步”“左转九十度”“右转九十度”。但问题是机器人并不能完全遵守这些指令，因为如果机器人完全遵守这些指令，它可能会走到障碍物的格子里或者走到迷宫外面去，那样就会有危险。机器人希望从这个指令序列里面去掉一些，然后执行剩下的指令时，可以保证整个过程中都不会有危险。</p>
+<p>机器人虽然不太听话，但它并不想惹恼了 DD，否则 DD 可能会把它拆掉的。所以机器人希望去掉的指令尽量少。</p>
+<p>那么，机器人最少需要去掉多少条指令才能保证不会有危险呢？</p>
+</div>
+<div class="section" id="id21">
+<h2>输入格式</h2>
+<p>第一行有四个整数 N、M、X0、Y0。表示迷宫的大小是 N*N，指令共有 M 条，机器人初始时的位置是 (X0,Y0)。机器人初始时面朝的方向是上方。也就是说，若机器人按照初始时的方向走，效果是所在的 X 坐标越来越小。</p>
+<p>下面有 N 行，每行有 N 个字符，可能是点号 '.' 或星号 '*'。'.' 表示空地，'*' 表示障碍。初始位置肯定是一个空地。</p>
+<p>下面的 M 行，每行有一个字符串，表示指令。字符串可能是：FORWARD（前进一步）、BACK（后退一步）、LEFT（左转）、RIGHT（右转）。</p>
+</div>
+<div class="section" id="id22">
+<h2>输出格式</h2>
+<p>只需要输出一个整数，表示机器人最少需要去掉多少条指令才能保证不出危险。</p>
+</div>
+<div class="section" id="id23">
+<h2>样例输入</h2>
+<pre class="literal-block">
+4 7 3 3
+.***
+..**
+*..*
+****
+LEFT
+FORWARD
+LEFT
+BACK
+FORWARD
+RIGHT
+FORWARD
+</pre>
+</div>
+<div class="section" id="id24">
+<h2>样例输出</h2>
+<pre class="literal-block">
+1
+</pre>
+</div>
+<div class="section" id="id25">
+<h2>样例说明</h2>
+<p>去掉第 3 条、第 5 条或者第 7 条指令都可以保证机器人无危险。</p>
+</div>
+<div class="section" id="id26">
+<h2>数据范围</h2>
+<p>迷宫的边长 N&lt;=100。</p>
+<p>指令数 M&lt;=1000。</p>
+</div>
+</div>
+<div class="section" id="id27">
+<h1>新魔法药水</h1>
+<div class="section" id="id28">
+<h2>题目描述</h2>
+<p>魔法师 DD 想给 MM 送一份生日礼物，可是他没有足够的金币。魔法娴熟的 DD 自然想到了利用自己高明的魔药配制技巧来多赚一些金币。</p>
+<p>DD 一共知道 N 种魔药（以 1..N 编号），还掌握 M 种配制魔药的方法（以 1..M 编号）。他掌握的每种配制魔药的方法都可以简单表述如下：将若干种魔药各一瓶倒入坩埚内，用魔杖搅拌的同时施出一个特定的魔法，再经过适当浓缩，就可以得到一瓶新的魔药。</p>
+<p>森林里有一家魔法商店，这里不仅出售各种魔药，同时也以比售价略低的价格收购各种魔药。DD 的如意算盘就是：首先用自己攒下的 V 个金币去魔法商店购买一些魔药作为原料，再用一天的时间在家努力地配制，最后把配制好的成品再卖给魔法商店。</p>
+<p>然而，由于魔法修为的原因，DD 在一天之内最多只能施出 K 次魔法。</p>
+<p>DD 想让你帮他算一算，他最多能够在这一天时间内赚到多少金币呢？</p>
+</div>
+<div class="section" id="id29">
+<h2>输入格式</h2>
+<p>第一行有四个整数：N、M、V、K。</p>
+<p>第二行开始的 N 行，每行有两个整数，第 i+1 行的两个整数分别表示第 i 种魔药的销售价和收购价。</p>
+<p>第 N+2 行开始的 M 行，每行有若干个整数，表示 DD 知道的一种魔药配制方法。每行的格式都是这样的：第一个整数表示这种魔药配制方法可以得到的一瓶魔药成品的编号。下一个整数 n（n&lt;N），表示这种配制方法需要 n 瓶原料。下面 n 个整数，表示这 n 瓶原料的编号。</p>
+</div>
+<div class="section" id="id30">
+<h2>输出格式</h2>
+<p>只需输出一个整数，表示最多可以赚到金币的数量。</p>
+</div>
+<div class="section" id="id31">
+<h2>样例输入</h2>
+<pre class="literal-block">
+4 2 6 3
+1 0
+1 0
+5 3
+20 15
+3 2 1 2
+4 3 1 2 3
+</pre>
+</div>
+<div class="section" id="id32">
+<h2>样例输出</h2>
+<pre class="literal-block">
+12
+</pre>
+</div>
+<div class="section" id="id33">
+<h2>样例说明</h2>
+<p>一种最优方案是：买进 1 号和 2 号药水各三瓶，花费 6 金币。使用 1 号魔法 2 次，2 号魔法 1 次。最后得到一瓶 3 号药水，一瓶 4 号药水，卖得 18 金币。赚了 12 金币。</p>
+</div>
+<div class="section" id="id34">
+<h2>数据范围</h2>
+<p>药水种类 N&lt;=60。</p>
+<p>配制方法数 M&lt;=240。</p>
+<p>初始的金币数 V&lt;=1000。</p>
+<p>每天可施的魔法数 K&lt;=30。</p>
+<div class="important">
+<p class="first admonition-title">Important</p>
+<p class="last">你作为email附件发送的压缩包，应该包括且仅包括你要提交的所有源文件（.c/.cpp/.pas），没有任何文件夹，更不要打包任何可执行文件。压缩包的文件名即你想采用的参赛名。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<p>Copyright (c)  2007  Tianyi Cui</p>
+<p>Permission is granted to copy, distribute and/or modify this document under the terms of <a class="reference external" href="http://www.gnu.org/licenses/fdl.txt">the GNU Free Documentation License</a>, Version 1.2 or any later version published by the Free Software Foundation.</p>
+<p><a class="reference external" href="DP07.rst">View document source</a>.
+Generated on: 2007-11-09 04:47 UTC.
+Generated by <a class="reference external" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
+</p>
+
+</div>
+</body>
+</html>

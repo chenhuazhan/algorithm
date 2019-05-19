@@ -1,0 +1,25 @@
+zju1953 先进的水果
+
+
+INPUT
+    输入文件包含两个要组合的水果名字。所有的名字最多有100个字母。
+OUTPUT
+    对每一组测试数据，打印出一个最短的组合名字（即包含测试数据的两个字符串的最短字符串），如果有多个最短的名字，只需打印出一个。
+Sample Input 
+
+
+
+
+
+
+apple peach
+ananas banana
+pear peach
+
+
+Sample Output
+
+appleach
+bananas
+pearch
+
